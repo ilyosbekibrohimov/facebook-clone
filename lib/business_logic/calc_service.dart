@@ -1,36 +1,28 @@
 import 'package:grpc/grpc.dart';
-import 'package:grpc_client/generated_files/calculator.pbgrpc.dart';
+import 'package:grpc_client/generated_files/posts.pbgrpc.dart';
 
-class CalculatorService {
+class WebService {
+  static ClientChannel _channel;
 
-
-  static Future<void> squareRoot() async {
-    final clientChannel = ClientChannel('192.168.0.101', port: 50051, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
-    final stub = CalculatorClient(clientChannel);
+  static Future<void> post(String title, String content, List<int> pictureBlob) async {
+    final stub = PostServiceClient(WebService.channel());
     try {
-      final response = await stub.squareRoot(Number()
-        ..value = 17);
-
-      print(response.value);
+      final response = await stub.uploadPost(UploadPost_Request()
+        ..title = title
+        ..content = content
+        ..pictureBlob = pictureBlob);
+      print(response.success);
     } catch (e) {
       print(e);
-    } finally {
-      await clientChannel.shutdown();
     }
   }
-  static Future<void> calculator() async {
-    final clientChannel = ClientChannel('192.168.0.101', port: 50051, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
-    final stub = CalculatorClient(clientChannel);
 
-    try {
-      final response = await stub.calculator(MyCalc_Request()
-        ..number1 = 15.0
-        ..number2 = 25.0
 
-      );
-      print(response.result);
-    } catch (e) {
-      print(e);
+  //open channel if it is null
+  static ClientChannel channel() {
+    if (_channel == null) {
+      _channel = ClientChannel('192.168.0.101', port: 50051, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
     }
+    return _channel;
   }
 }

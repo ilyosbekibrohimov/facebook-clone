@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: MaterialButton(
-          child: Text("RUN!"),
+          child: Text("POST!"),
           onPressed: () {
             provider.calculator();
           },
