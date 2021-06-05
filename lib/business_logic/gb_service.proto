@@ -1,0 +1,454 @@
+syntax = "proto3";
+option java_package = "uz.globens";
+
+
+// generic part
+message FilterDetails{
+  bool useFilter = 1;
+  string substring = 2;
+  string regex = 3;
+  int32 categoryId = 4;
+  int32 businessPageId = 5;
+}
+
+// user management requests/responses
+message AuthenticateUser {
+  enum AuthMethod {
+    GOOGLE = 0;
+    FACEBOOK = 1;
+    KAKAOTALK = 3;
+    PHONE = 4;
+    APPLE = 5;
+  }
+  message Request{
+    AuthMethod method = 1;
+    string tokensJson = 2; // could be : auth token, phone number, etc.
+  }
+  message Response{
+    bool success = 1;
+    int32 userId = 2;
+    string sessionKey = 3;
+  }
+}
+message DeactivateUser{
+  message Request{
+    int32 sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateUserDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchUserDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 userId = 2;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string email = 3;
+    string name = 4;
+    string picture = 5;
+    bytes pictureBlob = 6;
+  }
+}
+
+// business page management requests/responses
+message CreateBusinessPage{
+  message Request{
+    string sessionKey = 1;
+    string title = 2;
+    bytes pictureBlob = 3;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateBusinessPageDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateBusinessPage{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchMyBusinessPageIds{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchBusinessPageDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string title = 3;
+    string type = 4;
+    bytes pictureBlob = 5;
+    string role = 6;
+  }
+}
+
+// product management requests/responses
+enum Currency {
+  KRW = 0;
+  USD = 1;
+  UZS = 3;
+  RUB = 4;
+}
+message CreateProduct{
+  message Request{
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+    string name = 3;
+    string type = 4;
+    int32 categoryId = 5;
+    bytes pictureBlob = 6;
+    float price = 7;
+    Currency currency = 8;
+    string description = 9;
+    bytes content = 10;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateProductDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 productId = 2;
+    int32 businessPageId = 3;
+    string name = 4;
+    string type = 5;
+    int32 categoryId = 6;
+    bytes pictureBlob = 7;
+    float price = 8;
+    Currency currency = 9;
+    string description = 10;
+    bytes content = 11;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchNextKProductIds{
+  message Request{
+    int32 k = 1;
+    int32 previousProductId = 2;
+    FilterDetails filterDetails = 3;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchProductDetails{
+  message Request{
+    int32 productId = 1;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string name = 3;
+    string type = 4;
+    int32 categoryId = 5;
+    bool published = 6;
+    bytes pictureBlob = 7;
+    int32 businessPageId = 8;
+    float price = 9;
+    Currency currency = 10;
+    string description = 11;
+    bytes content = 12;
+  }
+}
+message PublishProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UnpublishProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchProductCategoryIds{
+  message Request{}
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchProductCategoryDetails{
+  message Request{
+    int32 categoryId = 1;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string name = 3;
+    bytes pictureBlob = 4;
+    repeated string examples = 5;
+  }
+}
+
+// job or vacancy management requests/responses
+message CreateVacantJob{
+  message Request{
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+    string title = 3;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateJobDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateJob{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchBusinessPageJobIds{
+  message Request{
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchNextKVacantJobIds{
+  message Request{
+    string sessionKey = 1;
+    int32 k = 2;
+    int32 previousVacantJobId = 3;
+    FilterDetails filterDetails = 4;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchJobDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 jobId = 2;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string role = 3;
+    string title = 4;
+    int32 hiredUserId = 5;
+  }
+}
+
+// vacancy (vacant job) application management requests/responses
+message CreateJobApplication{
+  message Request{
+    string sessionKey = 1;
+    int32 jobId = 2;
+    string message = 3;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateJobApplicationDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateJobApplication{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchJobApplicationIds{
+  message Request{
+    string sessionKey = 1;
+    int32 jobId = 2;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchJobApplicationDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 jobApplicationId = 2;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string message = 3;
+    int32 applicantId = 4;
+  }
+}
+message ApproveJobApplication{
+  message Request{
+    string sessionKey = 1;
+    int32 jobApplicationId = 2;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message DeclineJobApplication{
+  message Request{
+    string sessionKey = 1;
+    int32 jobApplicationId = 2;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+// purchase management requests/responses
+message LogPurchase{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchPurchases{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchPurchaseDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+
+service GlobensService {
+  // user management RPCs
+  rpc authenticateUser (AuthenticateUser.Request) returns (AuthenticateUser.Response) {}
+  rpc deactivateUser (DeactivateUser.Request) returns (DeactivateUser.Response) {}
+  rpc updateUserDetails(UpdateUserDetails.Request) returns (UpdateUserDetails.Response) {}
+  rpc fetchUserDetails(FetchUserDetails.Request) returns (FetchUserDetails.Response) {}
+
+
+  // business page management RPCs
+  rpc createBusinessPage(CreateBusinessPage.Request) returns (CreateBusinessPage.Response) {}
+  rpc updateBusinessPageDetails(UpdateBusinessPageDetails.Request) returns (UpdateBusinessPageDetails.Response) {}
+  rpc uncreateBusinessPage(UncreateBusinessPage.Request) returns (UncreateBusinessPage.Response) {}
+  rpc fetchMyBusinessPageIds(FetchMyBusinessPageIds.Request) returns (FetchMyBusinessPageIds.Response) {}
+  rpc fetchBusinessPageDetails(FetchBusinessPageDetails.Request) returns (FetchBusinessPageDetails.Response) {}
+
+
+  // product management RPCs
+  rpc createProduct(CreateProduct.Request) returns (CreateProduct.Response) {}
+  rpc updateProductDetails(UpdateProductDetails.Request) returns (UpdateProductDetails.Response) {}
+  rpc publishProduct(PublishProduct.Request) returns (PublishProduct.Response) {}
+  rpc unpublishProduct(UnpublishProduct.Request) returns (UnpublishProduct.Response) {}
+  rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
+  rpc fetchNextKProductIds(FetchNextKProductIds.Request) returns (FetchNextKProductIds.Response) {}
+  rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
+  rpc fetchProductCategoryIds(FetchProductCategoryIds.Request) returns (FetchProductCategoryIds.Response) {}
+  rpc fetchProductCategoryDetails(FetchProductCategoryDetails.Request) returns (FetchProductCategoryDetails.Response) {}
+
+
+  // vacancy management RPCs
+  rpc createVacantJob(CreateVacantJob.Request) returns (CreateVacantJob.Response) {}
+  rpc updateJobDetails(UpdateJobDetails.Request) returns (UpdateJobDetails.Response) {}
+  rpc uncreateJob(UncreateJob.Request) returns (UncreateJob.Response) {}
+  rpc fetchBusinessPageJobIds(FetchBusinessPageJobIds.Request) returns (FetchBusinessPageJobIds.Response) {}
+  rpc fetchNextKVacantJobIds(FetchNextKVacantJobIds.Request) returns (FetchNextKVacantJobIds.Response) {}
+  rpc fetchJobDetails(FetchJobDetails.Request) returns (FetchJobDetails.Response) {}
+
+
+  // vacancy application management RPCs
+  rpc createJobApplication(CreateJobApplication.Request) returns (CreateJobApplication.Response) {}
+  rpc updateJobApplicationDetails(UpdateJobApplicationDetails.Request) returns (UpdateJobApplicationDetails.Response) {}
+  rpc uncreateJobApplication(UncreateJobApplication.Request) returns (UncreateJobApplication.Response) {}
+  rpc fetchJobApplicationIds(FetchJobApplicationIds.Request) returns (FetchJobApplicationIds.Response) {}
+  rpc fetchJobApplicationDetails(FetchJobApplicationDetails.Request) returns (FetchJobApplicationDetails.Response) {}
+  rpc approveJobApplication(ApproveJobApplication.Request) returns (ApproveJobApplication.Response) {}
+  rpc declineJobApplication(DeclineJobApplication.Request) returns (DeclineJobApplication.Response) {}
+
+
+  // purchase management RPCs
+  rpc logPurchase(LogPurchase.Request) returns (LogPurchase.Response){}
+  rpc fetchPurchases(FetchPurchases.Request) returns (FetchPurchases.Response){}
+  rpc fetchPurchaseDetails(FetchPurchaseDetails.Request) returns (FetchPurchaseDetails.Response){}
+}
+
+
+/*
+gRPC HOWTO:
+Compile into python script:
+    python -m grpc_tools.protoc -I=[input directory] --python_out=[output directory] --grpc_python_out=[output directory] [file name].proto
+    python -m grpc_tools.protoc -I=./gb_protos/ --python_out=./gb_grpcs/ --grpc_python_out=./gb_grpcs/ gb_service.proto
+Compile into java source:
+    protoc --java_out=[output directory] --grpc_java_out=[output directory] [file name].proto
+Compile into dart / flutter:
+    protoc -I=[input directory] --dart_out=grpc:[output directory] [file name].proto
+    protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
+etc.
+*/
