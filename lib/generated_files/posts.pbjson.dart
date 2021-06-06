@@ -61,29 +61,27 @@ const FetchPostDetails_Response$json = const {
 
 /// Descriptor for `FetchPostDetails`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List fetchPostDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3REZXRhaWxzGiIKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkGnYKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhgKB2NvbnRlbnQYAyABKAlSB2NvbnRlbnQSIAoLcGljdHVyZUJsb2IYBCABKAxSC3BpY3R1cmVCbG9i');
-@$core.Deprecated('Use fetchKPostsDescriptor instead')
-const FetchKPosts$json = const {
-  '1': 'FetchKPosts',
-  '3': const [FetchKPosts_Request$json, FetchKPosts_Response$json],
+@$core.Deprecated('Use fetchKPostIdsDescriptor instead')
+const FetchKPostIds$json = const {
+  '1': 'FetchKPostIds',
+  '3': const [FetchKPostIds_Request$json, FetchKPostIds_Response$json],
 };
 
-@$core.Deprecated('Use fetchKPostsDescriptor instead')
-const FetchKPosts_Request$json = const {
+@$core.Deprecated('Use fetchKPostIdsDescriptor instead')
+const FetchKPostIds_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'k', '3': 1, '4': 1, '5': 5, '10': 'k'},
   ],
 };
 
-@$core.Deprecated('Use fetchKPostsDescriptor instead')
-const FetchKPosts_Response$json = const {
+@$core.Deprecated('Use fetchKPostIdsDescriptor instead')
+const FetchKPostIds_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'title', '3': 1, '4': 3, '5': 9, '10': 'title'},
-    const {'1': 'content', '3': 2, '4': 3, '5': 9, '10': 'content'},
-    const {'1': 'pictureBlob', '3': 3, '4': 3, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'id', '3': 1, '4': 3, '5': 5, '10': 'id'},
   ],
 };
 
-/// Descriptor for `FetchKPosts`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchKPostsDescriptor = $convert.base64Decode('CgtGZXRjaEtQb3N0cxoXCgdSZXF1ZXN0EgwKAWsYASABKAVSAWsaXAoIUmVzcG9uc2USFAoFdGl0bGUYASADKAlSBXRpdGxlEhgKB2NvbnRlbnQYAiADKAlSB2NvbnRlbnQSIAoLcGljdHVyZUJsb2IYAyADKAxSC3BpY3R1cmVCbG9i');
+/// Descriptor for `FetchKPostIds`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchKPostIdsDescriptor = $convert.base64Decode('Cg1GZXRjaEtQb3N0SWRzGhcKB1JlcXVlc3QSDAoBaxgBIAEoBVIBaxoaCghSZXNwb25zZRIOCgJpZBgBIAMoBVICaWQ=');

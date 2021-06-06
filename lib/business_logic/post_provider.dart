@@ -13,6 +13,6 @@ class PostProvider extends ChangeNotifier {
   }
 
   Future<void> fetchSinglePost(int id) async {
-    await WebService.fetchSinglePost(id);
+    await WebService.fetchPostsIds(id);
   }
 }

@@ -37,6 +37,35 @@ class WebService {
     }
   }
 
+  static Future<List<int>> fetchPostsIds(int  k) async{
+    final stub = PostServiceClient(WebService.channel());
+
+    try{
+      final response = await stub.fetchPosts(FetchKPostIds_Request()
+        ..k = 5);
+    print(response.id);
+    return response.id;
+    }
+
+    catch(e){
+    print(e);
+    return  null;
+    }
+
+  }
+
+  static Future<void> fetchKPosts(int k) async{
+    final stub = PostServiceClient(WebService.channel());
+
+    try{
+
+    }
+    catch(e){
+      print(e);
+    }
+  }
+
+
   //open channel if it is null
   static ClientChannel channel() {
     if (_channel == null) {

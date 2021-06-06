@@ -27,11 +27,11 @@ class PostServiceClient extends $grpc.Client {
       ($core.List<$core.int> value) =>
           $0.FetchPostDetails_Response.fromBuffer(value));
   static final _$fetchPosts =
-      $grpc.ClientMethod<$0.FetchKPosts_Request, $0.FetchKPosts_Response>(
+      $grpc.ClientMethod<$0.FetchKPostIds_Request, $0.FetchKPostIds_Response>(
           '/PostService/fetchPosts',
-          ($0.FetchKPosts_Request value) => value.writeToBuffer(),
+          ($0.FetchKPostIds_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.FetchKPosts_Response.fromBuffer(value));
+              $0.FetchKPostIds_Response.fromBuffer(value));
 
   PostServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -50,8 +50,8 @@ class PostServiceClient extends $grpc.Client {
     return $createUnaryCall(_$fetchPostDetails, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.FetchKPosts_Response> fetchPosts(
-      $0.FetchKPosts_Request request,
+  $grpc.ResponseFuture<$0.FetchKPostIds_Response> fetchPosts(
+      $0.FetchKPostIds_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchPosts, request, options: options);
   }
@@ -79,15 +79,15 @@ abstract class PostServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchPostDetails_Request.fromBuffer(value),
         ($0.FetchPostDetails_Response value) => value.writeToBuffer()));
-    $addMethod(
-        $grpc.ServiceMethod<$0.FetchKPosts_Request, $0.FetchKPosts_Response>(
-            'fetchPosts',
-            fetchPosts_Pre,
-            false,
-            false,
-            ($core.List<$core.int> value) =>
-                $0.FetchKPosts_Request.fromBuffer(value),
-            ($0.FetchKPosts_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchKPostIds_Request,
+            $0.FetchKPostIds_Response>(
+        'fetchPosts',
+        fetchPosts_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchKPostIds_Request.fromBuffer(value),
+        ($0.FetchKPostIds_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.UploadPost_Response> uploadPost_Pre($grpc.ServiceCall call,
@@ -101,8 +101,9 @@ abstract class PostServiceBase extends $grpc.Service {
     return fetchPostDetails(call, await request);
   }
 
-  $async.Future<$0.FetchKPosts_Response> fetchPosts_Pre($grpc.ServiceCall call,
-      $async.Future<$0.FetchKPosts_Request> request) async {
+  $async.Future<$0.FetchKPostIds_Response> fetchPosts_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchKPostIds_Request> request) async {
     return fetchPosts(call, await request);
   }
 
@@ -110,6 +111,6 @@ abstract class PostServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UploadPost_Request request);
   $async.Future<$0.FetchPostDetails_Response> fetchPostDetails(
       $grpc.ServiceCall call, $0.FetchPostDetails_Request request);
-  $async.Future<$0.FetchKPosts_Response> fetchPosts(
-      $grpc.ServiceCall call, $0.FetchKPosts_Request request);
+  $async.Future<$0.FetchKPostIds_Response> fetchPosts(
+      $grpc.ServiceCall call, $0.FetchKPostIds_Request request);
 }
