@@ -16,6 +16,8 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
   File _file;
   ImagePicker _imagePicker = ImagePicker();
   List<int> _pictureBlob = [];
+  final _titleController = TextEditingController();
+  final _contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
     return Container(
       margin: EdgeInsets.only(top: 10, right: 10, left: 10),
       child: TextFormField(
+        controller: _titleController,
         autofocus: true,
         decoration: InputDecoration(
           hintText: "Your title",
@@ -70,6 +73,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
     return Container(
       margin: EdgeInsets.only(top: 10, right: 10, left: 10),
       child: TextFormField(
+        controller: _contentController,
         maxLines: 5,
         decoration: InputDecoration(
           hintText: "What's in your mind?",
@@ -114,7 +118,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
             elevation: 5.0,
             textColor: Colors.white,
             onPressed: () {
-              post.post("my title", "Hello my name id someone and I am ready  to changes", _pictureBlob).then((value) {
+              post.post(_titleController.text, _contentController.text, _pictureBlob).then((value) {
                 print(value);
               });
             },

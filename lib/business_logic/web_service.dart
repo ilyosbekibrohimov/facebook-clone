@@ -19,6 +19,24 @@ class WebService {
     }
   }
 
+  static Future<void> fetchSinglePost(int id) async{
+    final stub = PostServiceClient(WebService.channel());
+
+    try{
+      final response = await stub.fetchPostDetails(FetchPostDetails_Request()
+      ..postId = id
+      );
+      print(response.success);
+      print(response.title);
+      print(response.content);
+      print(response.pictureBlob);
+
+    }
+    catch(e){
+      print(e);
+    }
+  }
+
   //open channel if it is null
   static ClientChannel channel() {
     if (_channel == null) {

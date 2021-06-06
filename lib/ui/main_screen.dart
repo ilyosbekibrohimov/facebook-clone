@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: MaterialButton(
           child: Text("POST!"),
           onPressed: () {
-            provider.post("dummy", "dummy", [1,2,3]);
+            provider.fetchSinglePost(36);
           },
         ),
       ),
