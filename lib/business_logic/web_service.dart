@@ -4,6 +4,8 @@ import 'package:grpc_client/generated_files/posts.pbgrpc.dart';
 class WebService {
   static ClientChannel _channel;
 
+  
+
   static Future<void> post(String title, String content, List<int> pictureBlob) async {
     final stub = PostServiceClient(WebService.channel());
     try {
