@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:grpc_client/business_logic/post_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class PostBottomSheet extends StatefulWidget {
   const PostBottomSheet();
@@ -13,27 +15,20 @@ class PostBottomSheet extends StatefulWidget {
 class _PostBottomSheetState extends State<PostBottomSheet> {
   File _file;
   ImagePicker _imagePicker = ImagePicker();
+  List<int> _pictureBlob = [];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              _buildHeader(context),
-              _buildDivider(),
-              _buildTitle(),
-              _buildContent(),
-              _file!=null ? _buildImage() : _buildPictureSelector(context),
-              _buildPostWidget()],
+            children: [_buildHeader(context), _buildDivider(), _buildTitle(), _buildContent(), _file != null ? _buildImage() : _buildPictureSelector(context), _buildPostWidget()],
           ),
         ),
       ),
     );
   }
-
 
   //region build widgets
   Widget _buildHeader(BuildContext context) {
@@ -107,19 +102,26 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
   }
 
   Widget _buildImage() {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Image.file(_file)
-    );
+    return Container(margin: EdgeInsets.all(10), child: Image.file(_file));
   }
 
   Widget _buildPostWidget() {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-      width: double.infinity,
-      child: MaterialButton(elevation: 5.0, textColor: Colors.white, onPressed: () {}, child: Text("POST")),
-      color: Colors.blue,
-    );
+    return Consumer<PostProvider>(builder: (context, post, child) {
+      return Container(
+        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+        width: double.infinity,
+        child: MaterialButton(
+            elevation: 5.0,
+            textColor: Colors.white,
+            onPressed: () {
+              post.post("my title", "Hello my name id someone and I am ready  to changes", _pictureBlob).then((value) {
+                print(value);
+              });
+            },
+            child: Text("POST")),
+        color: Colors.blue,
+      );
+    });
   }
 
   Widget _buildDivider() {
@@ -147,8 +149,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
                     onPressed: () async {
                       await getImage(ImageSource.gallery);
                       Navigator.pop(context);
-
-                      },
+                    },
                     child: Text("Photo"),
                   ),
                 ],
@@ -159,13 +160,12 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
   //reion utils
   Future getImage(ImageSource imageSource) async {
     final pickedFile = await _imagePicker.getImage(source: imageSource);
+    final bytes = await pickedFile.readAsBytes();
     if (pickedFile != null) {
       setState(() {
         _file = File(pickedFile.path);
+        _pictureBlob.addAll(bytes);
       });
-
-      print(await pickedFile.readAsBytes());
-
     } else {
       print("No image selected");
     }

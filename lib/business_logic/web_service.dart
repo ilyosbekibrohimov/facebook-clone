@@ -4,9 +4,7 @@ import 'package:grpc_client/generated_files/posts.pbgrpc.dart';
 class WebService {
   static ClientChannel _channel;
 
-  
-
-  static Future<void> post(String title, String content, List<int> pictureBlob) async {
+  static Future<bool> post(String title, String content, List<int> pictureBlob) async {
     final stub = PostServiceClient(WebService.channel());
     try {
       final response = await stub.uploadPost(UploadPost_Request()
@@ -14,11 +12,12 @@ class WebService {
         ..content = content
         ..pictureBlob = pictureBlob);
       print(response.success);
+      return response.success;
     } catch (e) {
       print(e);
+      return false;
     }
   }
-
 
   //open channel if it is null
   static ClientChannel channel() {
