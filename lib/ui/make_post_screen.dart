@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:grpc_client/business_logic/post_provider.dart';
+import 'package:grpc_client/business_logic/providers/single_post_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +13,7 @@ class PostBottomSheet extends StatefulWidget {
 }
 
 class _PostBottomSheetState extends State<PostBottomSheet> {
-  File _file;
+  File? _file;
   ImagePicker _imagePicker = ImagePicker();
   List<int> _pictureBlob = [];
   final _titleController = TextEditingController();
@@ -106,7 +106,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
   }
 
   Widget _buildImage() {
-    return Container(margin: EdgeInsets.all(10), child: Image.file(_file));
+    return Container(margin: EdgeInsets.all(10), child: Image.file(_file!));
   }
 
   Widget _buildPostWidget() {
@@ -135,7 +135,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
     );
   }
 
-  Future<void> _buildBottomSheet(BuildContext context) {
+  Future<void> _buildBottomSheet(BuildContext context) async {
     showModalBottomSheet(
         context: context,
         builder: (context) => Container(
@@ -164,11 +164,11 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
   //reion utils
   Future getImage(ImageSource imageSource) async {
     final pickedFile = await _imagePicker.getImage(source: imageSource);
-    final bytes = await pickedFile.readAsBytes();
+    final bytes = await pickedFile?.readAsBytes();
     if (pickedFile != null) {
       setState(() {
         _file = File(pickedFile.path);
-        _pictureBlob.addAll(bytes);
+        _pictureBlob.addAll(bytes!);
       });
     } else {
       print("No image selected");
