@@ -1,33 +1,31 @@
 import 'package:flutter/foundation.dart';
 import 'package:grpc_client/business_logic/services/web_service.dart';
-import 'package:grpc_client/models/post_model.dart';
+import 'package:grpc_client/models/post.dart';
 
 class PostsProvider extends ChangeNotifier {
   List<Post?> _posts = [];
+  bool _fetched = false;
 
-
-  Future<bool> fetchPosts(int k) async {
-    final fetchedPosts = await WebService.fetchKPosts(k);
-    bool status;
-
-    print(fetchedPosts);
-    if (fetchedPosts.isNotEmpty) {
+  Future<List<Post?>?> fetchPostsByPage(int pageNumber) async {
+    try {
       if(_posts.isNotEmpty)
         _posts.clear();
-      _posts.addAll(fetchedPosts);
+      _posts.addAll(await WebService.fetchKPosts(pageNumber));
 
-      status = true;
-    } else {
-      status = false;
+
+      if (_posts.isNotEmpty) {
+        return _posts;
+      }
+    } catch (e) {
+      print("exception happened: ${e}");
+      return [];
     }
+
     notifyListeners();
-    return status;
-  }
-
-  Future<void> testRequest(int k) async{
-    final response = await WebService.fetchPostsIds(k);
-
+    return [];
   }
 
   List<Post?> get posts => _posts;
+
+  bool get requestDone => _fetched;
 }

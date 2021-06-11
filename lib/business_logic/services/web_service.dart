@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import 'package:grpc_client/models/post_model.dart';
+import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/utils/generated_files/posts.pb.dart';
 import 'package:grpc_client/utils/generated_files/posts.pbgrpc.dart';
 
@@ -21,7 +21,7 @@ class WebService {
     }
   }
 
-  static Future<Post?> fetchSinglePost(int id) async {
+  static Future<Post?> searchPostById(int id) async {
     final stub = PostServiceClient(WebService.channel()!);
 
     try {
@@ -34,53 +34,27 @@ class WebService {
     }
   }
 
-  static Future<List<int>?> fetchPostsIds(int k) async {
+  static Future<List<Post?>> fetchKPosts(int pageNumber) async {
     final stub = PostServiceClient(WebService.channel()!);
-
+    List<Post> posts = [];
     try {
-      final response = await stub.fetchPosts(FetchKPostIds_Request()..k = 10);
-
-      return response.id;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
-  static Future<List<Post?>> fetchKPosts(int k) async {
-    try {
-      List<Post> posts = [];
-      List<int?> ids = [];
-
-      final fetchedIds = await fetchPostsIds(k);
-      if (fetchedIds != null && fetchedIds.isNotEmpty) {
-
-        if(ids.isNotEmpty)
-          ids.clear();
-        ids.addAll(fetchedIds);
-
-
-      }
-      for (int i = 0; i < k; i++) {
-        final post = await fetchSinglePost(ids[i]!);
-        if (post != null) {
-          posts.add(post);
+      print("web is triggered");
+      final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
+      if (response.success) {
+        for (int i = 0; i < response.title.length; i++) {
+          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i]));
         }
-        print("title: ${post!.title} ... content:${post.content}...list:${post.pictureBlob}");
-
-
       }
-
-
+      else{
+        posts.add(Post.create("none", "none", []));
+      }
       return posts;
     } catch (e) {
       print(e);
-      return [Post.create("error", "error", [])];
+      posts.add(Post.create(e.toString(), e.toString(), []));
+      return  posts;
     }
   }
-
-
-
 
   //open channel if it is null
   static ClientChannel? channel() {

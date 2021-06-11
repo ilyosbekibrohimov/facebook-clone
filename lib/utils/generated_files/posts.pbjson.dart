@@ -61,27 +61,31 @@ const FetchPostDetails_Response$json = const {
 
 /// Descriptor for `FetchPostDetails`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List fetchPostDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3REZXRhaWxzGiIKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkGnYKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhgKB2NvbnRlbnQYAyABKAlSB2NvbnRlbnQSIAoLcGljdHVyZUJsb2IYBCABKAxSC3BpY3R1cmVCbG9i');
-@$core.Deprecated('Use fetchKPostIdsDescriptor instead')
-const FetchKPostIds$json = const {
-  '1': 'FetchKPostIds',
-  '3': const [FetchKPostIds_Request$json, FetchKPostIds_Response$json],
+@$core.Deprecated('Use fetchPostsByPageDescriptor instead')
+const FetchPostsByPage$json = const {
+  '1': 'FetchPostsByPage',
+  '3': const [FetchPostsByPage_Request$json, FetchPostsByPage_Response$json],
 };
 
-@$core.Deprecated('Use fetchKPostIdsDescriptor instead')
-const FetchKPostIds_Request$json = const {
+@$core.Deprecated('Use fetchPostsByPageDescriptor instead')
+const FetchPostsByPage_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'k', '3': 1, '4': 1, '5': 5, '10': 'k'},
+    const {'1': 'pageNumber', '3': 1, '4': 1, '5': 5, '10': 'pageNumber'},
   ],
 };
 
-@$core.Deprecated('Use fetchKPostIdsDescriptor instead')
-const FetchKPostIds_Response$json = const {
+@$core.Deprecated('Use fetchPostsByPageDescriptor instead')
+const FetchPostsByPage_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'id', '3': 1, '4': 3, '5': 5, '10': 'id'},
+    const {'1': 'title', '3': 2, '4': 3, '5': 9, '10': 'title'},
+    const {'1': 'content', '3': 3, '4': 3, '5': 9, '10': 'content'},
+    const {'1': 'pictureBlob', '3': 4, '4': 3, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'success', '3': 5, '4': 1, '5': 8, '10': 'success'},
   ],
 };
 
-/// Descriptor for `FetchKPostIds`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchKPostIdsDescriptor = $convert.base64Decode('Cg1GZXRjaEtQb3N0SWRzGhcKB1JlcXVlc3QSDAoBaxgBIAEoBVIBaxoaCghSZXNwb25zZRIOCgJpZBgBIAMoBVICaWQ=');
+/// Descriptor for `FetchPostsByPage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchPostsByPageDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3RzQnlQYWdlGikKB1JlcXVlc3QSHgoKcGFnZU51bWJlchgBIAEoBVIKcGFnZU51bWJlchqGAQoIUmVzcG9uc2USDgoCaWQYASADKAVSAmlkEhQKBXRpdGxlGAIgAygJUgV0aXRsZRIYCgdjb250ZW50GAMgAygJUgdjb250ZW50EiAKC3BpY3R1cmVCbG9iGAQgAygMUgtwaWN0dXJlQmxvYhIYCgdzdWNjZXNzGAUgASgIUgdzdWNjZXNz');

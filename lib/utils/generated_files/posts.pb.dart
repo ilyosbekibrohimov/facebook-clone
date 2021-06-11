@@ -325,120 +325,158 @@ class FetchPostDetails extends $pb.GeneratedMessage {
   static FetchPostDetails? _defaultInstance;
 }
 
-class FetchKPostIds_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchKPostIds.Request', createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'k', $pb.PbFieldType.O3)
+class FetchPostsByPage_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchPostsByPage.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNumber', $pb.PbFieldType.O3, protoName: 'pageNumber')
     ..hasRequiredFields = false
   ;
 
-  FetchKPostIds_Request._() : super();
-  factory FetchKPostIds_Request({
-    $core.int? k,
+  FetchPostsByPage_Request._() : super();
+  factory FetchPostsByPage_Request({
+    $core.int? pageNumber,
   }) {
     final _result = create();
-    if (k != null) {
-      _result.k = k;
+    if (pageNumber != null) {
+      _result.pageNumber = pageNumber;
     }
     return _result;
   }
-  factory FetchKPostIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchKPostIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory FetchPostsByPage_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchPostsByPage_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  FetchKPostIds_Request clone() => FetchKPostIds_Request()..mergeFromMessage(this);
+  FetchPostsByPage_Request clone() => FetchPostsByPage_Request()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  FetchKPostIds_Request copyWith(void Function(FetchKPostIds_Request) updates) => super.copyWith((message) => updates(message as FetchKPostIds_Request)) as FetchKPostIds_Request; // ignore: deprecated_member_use
+  FetchPostsByPage_Request copyWith(void Function(FetchPostsByPage_Request) updates) => super.copyWith((message) => updates(message as FetchPostsByPage_Request)) as FetchPostsByPage_Request; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static FetchKPostIds_Request create() => FetchKPostIds_Request._();
-  FetchKPostIds_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchKPostIds_Request> createRepeated() => $pb.PbList<FetchKPostIds_Request>();
+  static FetchPostsByPage_Request create() => FetchPostsByPage_Request._();
+  FetchPostsByPage_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchPostsByPage_Request> createRepeated() => $pb.PbList<FetchPostsByPage_Request>();
   @$core.pragma('dart2js:noInline')
-  static FetchKPostIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchKPostIds_Request>(create);
-  static FetchKPostIds_Request? _defaultInstance;
+  static FetchPostsByPage_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPostsByPage_Request>(create);
+  static FetchPostsByPage_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get k => $_getIZ(0);
+  $core.int get pageNumber => $_getIZ(0);
   @$pb.TagNumber(1)
-  set k($core.int v) { $_setSignedInt32(0, v); }
+  set pageNumber($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasK() => $_has(0);
+  $core.bool hasPageNumber() => $_has(0);
   @$pb.TagNumber(1)
-  void clearK() => clearField(1);
+  void clearPageNumber() => clearField(1);
 }
 
-class FetchKPostIds_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchKPostIds.Response', createEmptyInstance: create)
+class FetchPostsByPage_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchPostsByPage.Response', createEmptyInstance: create)
     ..p<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.P3)
+    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
+    ..p<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.PY, protoName: 'pictureBlob')
+    ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..hasRequiredFields = false
   ;
 
-  FetchKPostIds_Response._() : super();
-  factory FetchKPostIds_Response({
+  FetchPostsByPage_Response._() : super();
+  factory FetchPostsByPage_Response({
     $core.Iterable<$core.int>? id,
+    $core.Iterable<$core.String>? title,
+    $core.Iterable<$core.String>? content,
+    $core.Iterable<$core.List<$core.int>>? pictureBlob,
+    $core.bool? success,
   }) {
     final _result = create();
     if (id != null) {
       _result.id.addAll(id);
     }
+    if (title != null) {
+      _result.title.addAll(title);
+    }
+    if (content != null) {
+      _result.content.addAll(content);
+    }
+    if (pictureBlob != null) {
+      _result.pictureBlob.addAll(pictureBlob);
+    }
+    if (success != null) {
+      _result.success = success;
+    }
     return _result;
   }
-  factory FetchKPostIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchKPostIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory FetchPostsByPage_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchPostsByPage_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  FetchKPostIds_Response clone() => FetchKPostIds_Response()..mergeFromMessage(this);
+  FetchPostsByPage_Response clone() => FetchPostsByPage_Response()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  FetchKPostIds_Response copyWith(void Function(FetchKPostIds_Response) updates) => super.copyWith((message) => updates(message as FetchKPostIds_Response)) as FetchKPostIds_Response; // ignore: deprecated_member_use
+  FetchPostsByPage_Response copyWith(void Function(FetchPostsByPage_Response) updates) => super.copyWith((message) => updates(message as FetchPostsByPage_Response)) as FetchPostsByPage_Response; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static FetchKPostIds_Response create() => FetchKPostIds_Response._();
-  FetchKPostIds_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchKPostIds_Response> createRepeated() => $pb.PbList<FetchKPostIds_Response>();
+  static FetchPostsByPage_Response create() => FetchPostsByPage_Response._();
+  FetchPostsByPage_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchPostsByPage_Response> createRepeated() => $pb.PbList<FetchPostsByPage_Response>();
   @$core.pragma('dart2js:noInline')
-  static FetchKPostIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchKPostIds_Response>(create);
-  static FetchKPostIds_Response? _defaultInstance;
+  static FetchPostsByPage_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPostsByPage_Response>(create);
+  static FetchPostsByPage_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$core.int> get id => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get title => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get content => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.List<$core.int>> get pictureBlob => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.bool get success => $_getBF(4);
+  @$pb.TagNumber(5)
+  set success($core.bool v) { $_setBool(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSuccess() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSuccess() => clearField(5);
 }
 
-class FetchKPostIds extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchKPostIds', createEmptyInstance: create)
+class FetchPostsByPage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchPostsByPage', createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
-  FetchKPostIds._() : super();
-  factory FetchKPostIds() => create();
-  factory FetchKPostIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchKPostIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchPostsByPage._() : super();
+  factory FetchPostsByPage() => create();
+  factory FetchPostsByPage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchPostsByPage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  FetchKPostIds clone() => FetchKPostIds()..mergeFromMessage(this);
+  FetchPostsByPage clone() => FetchPostsByPage()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  FetchKPostIds copyWith(void Function(FetchKPostIds) updates) => super.copyWith((message) => updates(message as FetchKPostIds)) as FetchKPostIds; // ignore: deprecated_member_use
+  FetchPostsByPage copyWith(void Function(FetchPostsByPage) updates) => super.copyWith((message) => updates(message as FetchPostsByPage)) as FetchPostsByPage; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static FetchKPostIds create() => FetchKPostIds._();
-  FetchKPostIds createEmptyInstance() => create();
-  static $pb.PbList<FetchKPostIds> createRepeated() => $pb.PbList<FetchKPostIds>();
+  static FetchPostsByPage create() => FetchPostsByPage._();
+  FetchPostsByPage createEmptyInstance() => create();
+  static $pb.PbList<FetchPostsByPage> createRepeated() => $pb.PbList<FetchPostsByPage>();
   @$core.pragma('dart2js:noInline')
-  static FetchKPostIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchKPostIds>(create);
-  static FetchKPostIds? _defaultInstance;
+  static FetchPostsByPage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPostsByPage>(create);
+  static FetchPostsByPage? _defaultInstance;
 }
 
