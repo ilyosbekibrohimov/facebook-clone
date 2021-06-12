@@ -4,8 +4,6 @@ class AuthProvider extends ChangeNotifier {
   Future<void> googleAuth() async {
 
 
-
-
   }
 
   Future<void> facebookAuth() async {}

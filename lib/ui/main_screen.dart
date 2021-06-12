@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grpc_client/business_logic/providers/posts_provider.dart';
 import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/ui/auth_screen.dart';
@@ -19,6 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Post?> posts = [];
   int initialPage = 1;
   ScrollController _scrollController = ScrollController();
+  bool _isEnd = false;
 
   @override
   void initState() {
@@ -29,9 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     provider.fetchPostsByPage(initialPage).then((value) {
       setState(() {
-        print(value);
 
-        print(value);
         posts.addAll(value!);
       });
     });
@@ -39,10 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         initialPage = initialPage + 1;
+        print("at the end of the list");
         provider.fetchPostsByPage(initialPage).then((value) {
           setState(() {
-            print(value);
-            posts.addAll(value!);
+            if (value!.length == 0) _isEnd = true;
+            else  _isEnd = false;
+            posts.addAll(value);
           });
         });
       }
@@ -55,18 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: ListView.builder(
-
-        controller: _scrollController,
-          itemCount: posts.length+1,
-          itemBuilder: (BuildContext ctx, index) {
-            if (index == 0)
-              return _buildHeaderWidget();
-            else  if(index == posts.length )
-              return CupertinoActivityIndicator();
-            else
-              return _buildSinglePostWidget(posts[index], screenHeight, screenWidth);
-          }),
+      body: SafeArea(
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            _buildSliverAppBar(),
+            _buildList(screenHeight, screenWidth),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -76,12 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  //widgets
   Widget _buildSinglePostWidget(Post? post, double height, double width) {
     double cardHeight = 0.4 * height;
     return Container(
       height: cardHeight,
       width: double.infinity,
-      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+      margin: EdgeInsets.only(top: 10),
       child: Card(
           elevation: 10,
           child: Column(
@@ -129,24 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildHeaderWidget() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: Text(
-                appName,
-                style: TextStyle(fontSize: 23, color: Colors.blue, fontWeight: FontWeight.bold),
-              ),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.search,
-                  size: 30,
-                ))
-          ],
-        ),
         Divider(
           color: Colors.black45,
         ),
@@ -175,6 +158,54 @@ class _MyHomePageState extends State<MyHomePage> {
         Divider(
           color: Colors.black45,
         ),
+      ],
+    );
+  }
+
+  Widget _buildList(double screenHeight, double screenWidth) => SliverToBoxAdapter(
+        child: ListView.builder(
+            itemCount: posts.length + 1,
+            primary: false,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext ctx, index) {
+              if (index == 0)
+                return _buildHeaderWidget();
+              else if (index == posts.length)
+                return _buildCustomLoadingWidget();
+              else
+                return _buildSinglePostWidget(posts[index], screenHeight, screenWidth);
+            }),
+      );
+
+  Widget _buildCustomLoadingWidget() {
+    if(!_isEnd)
+    return const SpinKitThreeBounce(
+      color: Colors.blue,
+      size: 50.0,
+    );
+    else  return Center(child: Container(
+        margin: EdgeInsets.all(10),
+        child: Text("No more results:(",  style: TextStyle(
+          fontSize: 18
+        ),)),);
+  }
+
+  Widget _buildSliverAppBar() {
+    return SliverAppBar(
+      floating: true,
+      backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+      title: Text(
+        appName,
+        style: TextStyle(fontSize: 23, color: Colors.blue, fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.search,
+              size: 30,
+              color: Colors.black54,
+            )),
       ],
     );
   }
