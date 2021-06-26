@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:grpc_client/business_logic/providers/auth_provider.dart';
 import 'package:grpc_client/business_logic/providers/posts_provider.dart';
 import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/ui/auth_screen.dart';
@@ -15,8 +16,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  PostsProvider provider = PostsProvider();
-  List<Post?> posts = [];
+  PostsProvider postsProvider = PostsProvider();
   int initialPage = 1;
   ScrollController _scrollController = ScrollController();
   bool _isEnd = false;
@@ -24,30 +24,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      provider = Provider.of<PostsProvider>(context, listen: false);
-    });
+  }
 
-    provider.fetchPostsByPage(initialPage).then((value) {
-      setState(() {
-        posts.addAll(value!);
-        print(posts[0]!.content);
-      });
-    });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    postsProvider = Provider.of<PostsProvider>(context, listen: true);
+    if (!postsProvider.requestDone) postsProvider.fetchPostsByPage(initialPage).then((value) {});
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        initialPage = initialPage + 1;
-        print("at the end of the list");
-        provider.fetchPostsByPage(initialPage).then((value) {
-          setState(() {
-            if (value!.length == 0) _isEnd = true;
-            else  _isEnd = false;
-            posts.addAll(value);
-          });
-        });
-      }
-    });
+    // _scrollController.addListener(() {
+    //   if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+    //     initialPage = initialPage + 1;
+    //     print("at the end of the list");
+    //     postsProvider.fetchPostsByPage(initialPage).then((value) {});
+    //   }
+    // });
   }
 
   @override
@@ -68,7 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet())).then((value) async{
+            print("hello hi2");
+            await postsProvider.fetchPostsByPage(1);
+          });
         },
       ),
     );
@@ -77,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
   //widgets
   Widget _buildSinglePostWidget(Post? post, double height, double width) {
     double cardHeight = 0.4 * height;
-    print("startr");
-    print(post!.title);
+
+
     return Container(
       height: cardHeight,
       width: double.infinity,
@@ -93,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 flex: 8,
                 child: Image.memory(
-                  Uint8List.fromList(post.pictureBlob!),
+                  Uint8List.fromList(post!.pictureBlob!),
                   width: double.infinity,
                   fit: BoxFit.fitWidth,
                 ),
@@ -128,69 +122,78 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildHeaderWidget() {
-    return Column(
-      children: [
-        Divider(
-          color: Colors.black45,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AuthScreen()),
-                  );
-                },
-                icon: Icon(
-                  Icons.account_circle,
-                  size: 30,
-                  color: Colors.blue,
-                )),
-            Container(
-                child: Text(
-              account_name,
-              style: TextStyle(fontSize: 18),
-            ))
-          ],
-        ),
-        Divider(
-          color: Colors.black45,
-        ),
-      ],
-    );
+    return Consumer<AuthProvider>(builder: (context,  auth, child) {
+      return Column(
+        children: [
+          Divider(
+            color: Colors.black45,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+             Container(
+               margin: EdgeInsets.only(left: 10),
+               child: InkWell(
+                 onTap: () {
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => AuthScreen())).then((value) async{
+                     print("hello hi1");
+                     await postsProvider.fetchPostsByPage(1);
+                   });
+                 },
+                 child: CircleAvatar(
+                   radius: 20,
+                   backgroundImage: NetworkImage(auth.imgUrl),
+                 ),
+               ),
+             ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    auth.fullName,
+                    style: TextStyle(fontSize: 18),
+                  ))
+            ],
+          ),
+          Divider(
+            color: Colors.black45,
+          ),
+        ],
+      );
+    });
   }
 
   Widget _buildList(double screenHeight, double screenWidth) => SliverToBoxAdapter(
         child: ListView.builder(
-            itemCount: posts.length + 1,
+            itemCount: postsProvider.posts.length + 1,
             primary: false,
             shrinkWrap: true,
             itemBuilder: (BuildContext ctx, index) {
-              if (index == 0)
+              if (index == 0) {
                 return _buildHeaderWidget();
-              else if (index == posts.length)
+              } else if (index == postsProvider.posts.length+1) {
                 return _buildCustomLoadingWidget();
-              else {
-
-                return _buildSinglePostWidget(
-                    posts[index], screenHeight, screenWidth);
+              } else {
+                index = index - 1;
+                return _buildSinglePostWidget(postsProvider.posts[index], screenHeight, screenWidth);
               }
-              }),
+            }),
       );
 
   Widget _buildCustomLoadingWidget() {
-    if(!_isEnd)
-    return const SpinKitThreeBounce(
-      color: Colors.blue,
-      size: 50.0,
-    );
-    else  return Center(child: Container(
-        margin: EdgeInsets.all(10),
-        child: Text("No more results:(",  style: TextStyle(
-          fontSize: 18
-        ),)),);
+    if (!_isEnd)
+      return const SpinKitThreeBounce(
+        color: Colors.blue,
+        size: 50.0,
+      );
+    else
+      return Center(
+        child: Container(
+            margin: EdgeInsets.all(10),
+            child: Text(
+              "No more results:(",
+              style: TextStyle(fontSize: 18),
+            )),
+      );
   }
 
   Widget _buildSliverAppBar() {

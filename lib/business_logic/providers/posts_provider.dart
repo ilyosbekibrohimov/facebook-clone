@@ -6,23 +6,21 @@ class PostsProvider extends ChangeNotifier {
   List<Post?> _posts = [];
   bool _fetched = false;
 
-  Future<List<Post?>?> fetchPostsByPage(int pageNumber) async {
+
+  Future<bool> fetchPostsByPage(int pageNumber) async {
+    if(_posts.isNotEmpty)
+      _posts.clear();
     try {
-      if(_posts.isNotEmpty)
-        _posts.clear();
       _posts.addAll(await WebService.fetchKPosts(pageNumber));
-
-
-      if (_posts.isNotEmpty) {
-        return _posts;
-      }
+      print(_posts.length);
+      _fetched = true;
+       notifyListeners();
+       return true;
     } catch (e) {
       print("exception happened: ${e}");
-      return [];
+      return false;
     }
 
-    notifyListeners();
-    return [];
   }
 
   List<Post?> get posts => _posts;

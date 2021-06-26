@@ -38,15 +38,11 @@ class WebService {
     final stub = PostServiceClient(WebService.channel()!);
     List<Post> posts = [];
     try {
-      print("web is triggered");
+
       final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
       if (response.success) {
-
         for (int i = 0; i < response.title.length; i++) {
           posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i]));
-          print(response.title[i]);
-          print(response.content[i]);
-          print(response.pictureBlob[i]);
         }
       }
       else{
@@ -63,7 +59,7 @@ class WebService {
   //open channel if it is null
   static ClientChannel? channel() {
     if (_channel == null) {
-      _channel = ClientChannel('192.168.0.234', port: 50000, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+      _channel = ClientChannel('192.168.0.101', port: 50051, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
     }
     return _channel;
   }
