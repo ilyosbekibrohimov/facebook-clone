@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/ui/auth_screen.dart';
 import 'package:grpc_client/utils/strings.dart';
 import 'package:provider/provider.dart';
-
 import 'make_post_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -32,8 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     provider.fetchPostsByPage(initialPage).then((value) {
       setState(() {
-
         posts.addAll(value!);
+        print(posts[0]!.content);
       });
     });
 
@@ -79,6 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
   //widgets
   Widget _buildSinglePostWidget(Post? post, double height, double width) {
     double cardHeight = 0.4 * height;
+    print("startr");
+    print(post!.title);
     return Container(
       height: cardHeight,
       width: double.infinity,
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 flex: 8,
                 child: Image.memory(
-                  Uint8List.fromList(post!.pictureBlob),
+                  Uint8List.fromList(post.pictureBlob!),
                   width: double.infinity,
                   fit: BoxFit.fitWidth,
                 ),
@@ -172,9 +172,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 return _buildHeaderWidget();
               else if (index == posts.length)
                 return _buildCustomLoadingWidget();
-              else
-                return _buildSinglePostWidget(posts[index], screenHeight, screenWidth);
-            }),
+              else {
+
+                return _buildSinglePostWidget(
+                    posts[index], screenHeight, screenWidth);
+              }
+              }),
       );
 
   Widget _buildCustomLoadingWidget() {
