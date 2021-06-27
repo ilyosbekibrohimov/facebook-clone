@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:grpc_client/business_logic/providers/auth_provider.dart';
+import 'package:grpc_client/utils/settings.dart';
 import 'package:grpc_client/utils/strings.dart';
 import 'package:provider/provider.dart';
 
@@ -49,9 +50,13 @@ class _AuthScreenState extends State<AuthScreen> {
          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
            children: [
-               Text("You signed in as ${auth.fullName}"),
+               Text("You signed in as ${auth.fullName()}"),
                MaterialButton(color: Colors.blue, onPressed: () {
                  auth.signOut();
+                 Navigator.pop(context);
+                 getSharedPreferences().then((value) {
+                   value!.clear();
+                 });
                  }, child: Text("Signout"), textColor: Colors.white,)
               ],
          ),

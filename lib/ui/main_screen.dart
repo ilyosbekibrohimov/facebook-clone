@@ -6,8 +6,10 @@ import 'package:grpc_client/business_logic/providers/auth_provider.dart';
 import 'package:grpc_client/business_logic/providers/posts_provider.dart';
 import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/ui/auth_screen.dart';
+import 'package:grpc_client/utils/settings.dart';
 import 'package:grpc_client/utils/strings.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'make_post_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -47,31 +49,35 @@ class _MyHomePageState extends State<MyHomePage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            _buildSliverAppBar(),
-            _buildList(screenHeight, screenWidth),
-          ],
+        body: SafeArea(
+          child: CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              _buildSliverAppBar(),
+              _buildList(screenHeight, screenWidth),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet())).then((value) async{
-            print("hello hi2");
-            await postsProvider.fetchPostsByPage(1);
-          });
-        },
-      ),
-    );
+        floatingActionButton: Consumer<AuthProvider>(
+          builder: (BuildContext context, value, Widget? child) {
+            return FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                if (value.loginStatus != Status.SignedOut)
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet())).then((value) async {
+                    await postsProvider.fetchPostsByPage(1);
+                  });
+                else
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AuthScreen()));
+              },
+            );
+          },
+        ));
   }
 
   //widgets
   Widget _buildSinglePostWidget(Post? post, double height, double width) {
     double cardHeight = 0.4 * height;
-
 
     return Container(
       height: cardHeight,
@@ -122,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildHeaderWidget() {
-    return Consumer<AuthProvider>(builder: (context,  auth, child) {
+    return Consumer<AuthProvider>(builder: (context, auth, child) {
       return Column(
         children: [
           Divider(
@@ -131,25 +137,25 @@ class _MyHomePageState extends State<MyHomePage> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-             Container(
-               margin: EdgeInsets.only(left: 10),
-               child: InkWell(
-                 onTap: () {
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => AuthScreen())).then((value) async{
-                     print("hello hi1");
-                     await postsProvider.fetchPostsByPage(1);
-                   });
-                 },
-                 child: CircleAvatar(
-                   radius: 20,
-                   backgroundImage: NetworkImage(auth.imgUrl),
-                 ),
-               ),
-             ),
               Container(
                 margin: EdgeInsets.only(left: 10),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AuthScreen())).then((value) async {
+                      print("hello hi1");
+                      await postsProvider.fetchPostsByPage(1);
+                    });
+                  },
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundImage: NetworkImage(auth.imgUrl()),
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(left: 10),
                   child: Text(
-                    auth.fullName,
+                    auth.fullName(),
                     style: TextStyle(fontSize: 18),
                   ))
             ],
@@ -170,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (BuildContext ctx, index) {
               if (index == 0) {
                 return _buildHeaderWidget();
-              } else if (index == postsProvider.posts.length+1) {
+              } else if (index == postsProvider.posts.length + 1) {
                 return _buildCustomLoadingWidget();
               } else {
                 index = index - 1;

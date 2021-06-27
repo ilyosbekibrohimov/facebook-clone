@@ -176,7 +176,6 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
             setState(() {
               _loading = false;
               Navigator.pop(context);
-
             });
       });
     },

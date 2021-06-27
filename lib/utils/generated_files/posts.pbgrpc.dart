@@ -14,6 +14,12 @@ import 'posts.pb.dart' as $0;
 export 'posts.pb.dart';
 
 class PostServiceClient extends $grpc.Client {
+  static final _$authenticateUser = $grpc.ClientMethod<
+          $0.AuthenticateUser_Request, $0.AuthenticateUser_Response>(
+      '/PostService/authenticateUser',
+      ($0.AuthenticateUser_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.AuthenticateUser_Response.fromBuffer(value));
   static final _$uploadPost =
       $grpc.ClientMethod<$0.UploadPost_Request, $0.UploadPost_Response>(
           '/PostService/uploadPost',
@@ -38,6 +44,12 @@ class PostServiceClient extends $grpc.Client {
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
+  $grpc.ResponseFuture<$0.AuthenticateUser_Response> authenticateUser(
+      $0.AuthenticateUser_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$authenticateUser, request, options: options);
+  }
+
   $grpc.ResponseFuture<$0.UploadPost_Response> uploadPost(
       $0.UploadPost_Request request,
       {$grpc.CallOptions? options}) {
@@ -61,6 +73,15 @@ abstract class PostServiceBase extends $grpc.Service {
   $core.String get $name => 'PostService';
 
   PostServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.AuthenticateUser_Request,
+            $0.AuthenticateUser_Response>(
+        'authenticateUser',
+        authenticateUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.AuthenticateUser_Request.fromBuffer(value),
+        ($0.AuthenticateUser_Response value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.UploadPost_Request, $0.UploadPost_Response>(
             'uploadPost',
@@ -90,6 +111,12 @@ abstract class PostServiceBase extends $grpc.Service {
         ($0.FetchPostsByPage_Response value) => value.writeToBuffer()));
   }
 
+  $async.Future<$0.AuthenticateUser_Response> authenticateUser_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.AuthenticateUser_Request> request) async {
+    return authenticateUser(call, await request);
+  }
+
   $async.Future<$0.UploadPost_Response> uploadPost_Pre($grpc.ServiceCall call,
       $async.Future<$0.UploadPost_Request> request) async {
     return uploadPost(call, await request);
@@ -107,6 +134,8 @@ abstract class PostServiceBase extends $grpc.Service {
     return fetchPosts(call, await request);
   }
 
+  $async.Future<$0.AuthenticateUser_Response> authenticateUser(
+      $grpc.ServiceCall call, $0.AuthenticateUser_Request request);
   $async.Future<$0.UploadPost_Response> uploadPost(
       $grpc.ServiceCall call, $0.UploadPost_Request request);
   $async.Future<$0.FetchPostDetails_Response> fetchPostDetails(

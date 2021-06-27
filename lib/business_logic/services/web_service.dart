@@ -6,13 +6,15 @@ import 'package:grpc_client/utils/generated_files/posts.pbgrpc.dart';
 class WebService {
   static ClientChannel? _channel;
 
-  static Future<bool> post(String title, String content, List<int> pictureBlob) async {
+  static Future<bool> post(String title, String content, List<int> pictureBlob, String userId) async {
     final stub = PostServiceClient(WebService.channel()!);
     try {
       final response = await stub.uploadPost(UploadPost_Request()
         ..title = title
         ..content = content
-        ..pictureBlob = pictureBlob);
+        ..pictureBlob = pictureBlob
+        ..id = userId
+      );
       print(response.success);
       return response.success;
     } catch (e) {
@@ -38,22 +40,32 @@ class WebService {
     final stub = PostServiceClient(WebService.channel()!);
     List<Post> posts = [];
     try {
-
       final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
       if (response.success) {
         for (int i = 0; i < response.title.length; i++) {
           posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i]));
         }
-      }
-      else{
+      } else {
         posts.add(Post.create("none", "none", []));
       }
       return posts;
     } catch (e) {
       print(e);
       posts.add(Post.create(e.toString(), e.toString(), []));
-      return  posts;
+      return posts;
     }
+  }
+
+  static Future<int?> authenticate(String? idToken) async {
+    final stub = PostServiceClient(WebService.channel()!);
+    final response = await stub.authenticateUser(AuthenticateUser_Request()..idToken = idToken!);
+    print(response);
+    if (response.success) {
+
+      print(response.userId);
+      return response.userId;
+    }
+    return null;
   }
 
   //open channel if it is null
