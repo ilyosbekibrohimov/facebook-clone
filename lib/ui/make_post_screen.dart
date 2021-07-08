@@ -137,7 +137,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
     return Container(
       margin: EdgeInsets.only(top: 15),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           MaterialButton(
               elevation: 5.0,
@@ -152,6 +152,11 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
               color: Color.fromRGBO(255, 255, 240, 0.8),
               onPressed: () {},
               child: Text("Video")),
+          MaterialButton(elevation: 5.0,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              color: Color.fromRGBO(255, 255, 240, 0.8),
+              onPressed: () {},
+              child: Text("Location")),
         ],
       ),
     );
@@ -163,23 +168,27 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
 
   Widget _buildPostWidget() {
     return Consumer<PostProvider>(builder: (context, post, child) {
-      return MaterialButton(
-          elevation: 5.0,
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          textColor: Colors.white,
-          onPressed: (){
-            setState(() {
-              _loading = true;
-            });
-          post.post(_titleController.text, _contentController.text, _pictureBlob).then((value) {
-            setState(() {
-              _loading = false;
-              Navigator.pop(context);
-            });
-      });
+      return Container(
+        width: double.maxFinite,
+        margin: EdgeInsets.all(10),
+        child: MaterialButton(
+            elevation: 5.0,
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            textColor: Colors.white,
+            onPressed: (){
+              setState(() {
+                _loading = true;
+              });
+            post.post(_titleController.text, _contentController.text, _pictureBlob).then((value) {
+              setState(() {
+                _loading = false;
+                Navigator.pop(context);
+              });
+        });
     },
-        child: Text("POST"));
+          child: Text("POST")),
+      );
   }
 
   );

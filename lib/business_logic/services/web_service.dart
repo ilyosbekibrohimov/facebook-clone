@@ -61,7 +61,6 @@ class WebService {
     final response = await stub.authenticateUser(AuthenticateUser_Request()..idToken = idToken!);
     print(response);
     if (response.success) {
-
       print(response.userId);
       return response.userId;
     }
