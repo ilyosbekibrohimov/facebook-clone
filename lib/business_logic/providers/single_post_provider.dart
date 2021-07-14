@@ -9,10 +9,10 @@ class PostProvider extends ChangeNotifier {
   Future<bool> post(String title, String content, List<int> pictureBlob) async {
 
     bool  posted = false;
-    getSharedPreferences().then((value) async {
-      posted = await WebService.post(title, content, pictureBlob, (value!.getString("user_id")??null)!);
+
+      posted = await WebService.post(title, content, pictureBlob, (preferences!.getString("user_id")??null)!);
       notifyListeners();
-    });
+
     return posted;
   }
 

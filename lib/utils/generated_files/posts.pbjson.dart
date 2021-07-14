@@ -115,3 +115,57 @@ const FetchPostsByPage_Response$json = const {
 
 /// Descriptor for `FetchPostsByPage`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List fetchPostsByPageDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3RzQnlQYWdlGikKB1JlcXVlc3QSHgoKcGFnZU51bWJlchgBIAEoBVIKcGFnZU51bWJlchqGAQoIUmVzcG9uc2USDgoCaWQYASADKAVSAmlkEhQKBXRpdGxlGAIgAygJUgV0aXRsZRIYCgdjb250ZW50GAMgAygJUgdjb250ZW50EiAKC3BpY3R1cmVCbG9iGAQgAygMUgtwaWN0dXJlQmxvYhIYCgdzdWNjZXNzGAUgASgIUgdzdWNjZXNz');
+@$core.Deprecated('Use fetchCommentsByPostDescriptor instead')
+const FetchCommentsByPost$json = const {
+  '1': 'FetchCommentsByPost',
+  '3': const [FetchCommentsByPost_Request$json, FetchCommentsByPost_Response$json],
+};
+
+@$core.Deprecated('Use fetchCommentsByPostDescriptor instead')
+const FetchCommentsByPost_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'post_id', '3': 1, '4': 1, '5': 5, '10': 'postId'},
+  ],
+};
+
+@$core.Deprecated('Use fetchCommentsByPostDescriptor instead')
+const FetchCommentsByPost_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'content', '3': 1, '4': 3, '5': 9, '10': 'content'},
+    const {'1': 'userPhotoUrl', '3': 2, '4': 3, '5': 9, '10': 'userPhotoUrl'},
+    const {'1': 'userName', '3': 3, '4': 3, '5': 9, '10': 'userName'},
+    const {'1': 'success', '3': 4, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `FetchCommentsByPost`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchCommentsByPostDescriptor = $convert.base64Decode('ChNGZXRjaENvbW1lbnRzQnlQb3N0GiIKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkGn4KCFJlc3BvbnNlEhgKB2NvbnRlbnQYASADKAlSB2NvbnRlbnQSIgoMdXNlclBob3RvVXJsGAIgAygJUgx1c2VyUGhvdG9VcmwSGgoIdXNlck5hbWUYAyADKAlSCHVzZXJOYW1lEhgKB3N1Y2Nlc3MYBCABKAhSB3N1Y2Nlc3M=');
+@$core.Deprecated('Use createCommentDescriptor instead')
+const CreateComment$json = const {
+  '1': 'CreateComment',
+  '3': const [CreateComment_Request$json, CreateComment_Response$json],
+};
+
+@$core.Deprecated('Use createCommentDescriptor instead')
+const CreateComment_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'post_id', '3': 2, '4': 1, '5': 5, '10': 'postId'},
+    const {'1': 'user_id', '3': 3, '4': 1, '5': 5, '10': 'userId'},
+    const {'1': 'content', '3': 4, '4': 1, '5': 9, '10': 'content'},
+  ],
+};
+
+@$core.Deprecated('Use createCommentDescriptor instead')
+const CreateComment_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `CreateComment`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createCommentDescriptor = $convert.base64Decode('Cg1DcmVhdGVDb21tZW50GmUKB1JlcXVlc3QSDgoCaWQYASABKAVSAmlkEhcKB3Bvc3RfaWQYAiABKAVSBnBvc3RJZBIXCgd1c2VyX2lkGAMgASgFUgZ1c2VySWQSGAoHY29udGVudBgEIAEoCVIHY29udGVudBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');

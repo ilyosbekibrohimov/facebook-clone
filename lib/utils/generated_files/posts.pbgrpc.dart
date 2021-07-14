@@ -38,6 +38,18 @@ class PostServiceClient extends $grpc.Client {
       ($0.FetchPostsByPage_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchPostsByPage_Response.fromBuffer(value));
+  static final _$createComment =
+      $grpc.ClientMethod<$0.CreateComment_Request, $0.CreateComment_Response>(
+          '/PostService/createComment',
+          ($0.CreateComment_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.CreateComment_Response.fromBuffer(value));
+  static final _$fetchComments = $grpc.ClientMethod<
+          $0.FetchCommentsByPost_Request, $0.FetchCommentsByPost_Response>(
+      '/PostService/fetchComments',
+      ($0.FetchCommentsByPost_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchCommentsByPost_Response.fromBuffer(value));
 
   PostServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -66,6 +78,18 @@ class PostServiceClient extends $grpc.Client {
       $0.FetchPostsByPage_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchPosts, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CreateComment_Response> createComment(
+      $0.CreateComment_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$createComment, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.FetchCommentsByPost_Response> fetchComments(
+      $0.FetchCommentsByPost_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$fetchComments, request, options: options);
   }
 }
 
@@ -109,6 +133,24 @@ abstract class PostServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchPostsByPage_Request.fromBuffer(value),
         ($0.FetchPostsByPage_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CreateComment_Request,
+            $0.CreateComment_Response>(
+        'createComment',
+        createComment_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.CreateComment_Request.fromBuffer(value),
+        ($0.CreateComment_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchCommentsByPost_Request,
+            $0.FetchCommentsByPost_Response>(
+        'fetchComments',
+        fetchComments_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchCommentsByPost_Request.fromBuffer(value),
+        ($0.FetchCommentsByPost_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AuthenticateUser_Response> authenticateUser_Pre(
@@ -134,6 +176,18 @@ abstract class PostServiceBase extends $grpc.Service {
     return fetchPosts(call, await request);
   }
 
+  $async.Future<$0.CreateComment_Response> createComment_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.CreateComment_Request> request) async {
+    return createComment(call, await request);
+  }
+
+  $async.Future<$0.FetchCommentsByPost_Response> fetchComments_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchCommentsByPost_Request> request) async {
+    return fetchComments(call, await request);
+  }
+
   $async.Future<$0.AuthenticateUser_Response> authenticateUser(
       $grpc.ServiceCall call, $0.AuthenticateUser_Request request);
   $async.Future<$0.UploadPost_Response> uploadPost(
@@ -142,4 +196,8 @@ abstract class PostServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.FetchPostDetails_Request request);
   $async.Future<$0.FetchPostsByPage_Response> fetchPosts(
       $grpc.ServiceCall call, $0.FetchPostsByPage_Request request);
+  $async.Future<$0.CreateComment_Response> createComment(
+      $grpc.ServiceCall call, $0.CreateComment_Request request);
+  $async.Future<$0.FetchCommentsByPost_Response> fetchComments(
+      $grpc.ServiceCall call, $0.FetchCommentsByPost_Request request);
 }

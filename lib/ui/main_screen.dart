@@ -36,13 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
     postsProvider = Provider.of<PostsProvider>(context, listen: true);
     if (!postsProvider.requestDone) postsProvider.fetchPostsByPage(initialPage).then((value) {});
 
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-    //     initialPage = initialPage + 1;
-    //     print("at the end of the list");
-    //     postsProvider.fetchPostsByPage(initialPage).then((value) {});
-    //   }
-    // });
   }
 
   @override
@@ -88,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final modalHeight = (height - MediaQueryData.fromWindow(window).padding.top);
     return InkWell(
       onTap: () async{
-        await showDetailedViewBottomSheet(post.title, post.content, post.pictureBlob, modalHeight);
+        await showDetailedViewBottomSheet(post.title, post.content, post.postId, post.pictureBlob, modalHeight, );
       },
       child: Container(
         height: cardHeight,
@@ -129,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             child: MaterialButton(
                               onPressed: () async {
-                                await showDetailedViewBottomSheet(post.title, post.content, post.pictureBlob, modalHeight);
+                                await showDetailedViewBottomSheet(post.title, post.content, post.postId, post.pictureBlob, modalHeight);
                               },
                               child: Text("...See more"),
                               textColor: Colors.blue,
@@ -273,14 +266,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> showDetailedViewBottomSheet(String title, String content, List<int>? pictureBlob, double height) async {
+  Future<void> showDetailedViewBottomSheet(String title, String content, int postId, List<int>? pictureBlob, double height) async {
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
           //the rounded corner is created here
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0)
+          ),
         ),
         context: context,
-        builder: (context) => DetailedPostBottomSheet(title, content, pictureBlob, height),
+        builder: (context) => DetailedPostBottomSheet(title, content, pictureBlob, height, postId),
         isScrollControlled: true);
   }
 }

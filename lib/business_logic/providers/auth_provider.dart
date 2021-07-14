@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +24,13 @@ class AuthProvider extends ChangeNotifier {
       final result = await FirebaseAuth.instance.signInWithCredential(credential);
       if (result.user != null) {
         _loginStatus = Status.GOOGLE;
-        WebService.authenticate(googleAuth.idToken).then((a) {
+        WebService.authenticate(googleAuth.idToken).then((a) async {
           if (a != null) {
-            getSharedPreferences().then((value) async {
-              await value!.setString('user_id', a.toString());
-              await value.setString("photo_url", result.user!.photoURL!);
-              await value.setString("name", result.user!.displayName!);
-            });
+
+              await preferences!.setString('user_id', a.toString());
+              await preferences!.setString("photo_url", result.user!.photoURL!);
+              await preferences!.setString("name", result.user!.displayName!);
+
           }
         });
         print(googleAuth.idToken);
@@ -58,25 +59,13 @@ class AuthProvider extends ChangeNotifier {
   }
 
   String imgUrl() {
-    getSharedPreferences().then((value) {
-      if (value != null) {
-        _imgUrl = value.getString("photo_url")??"https://www.pngitem.com/pimgs/m/9-93862_my-account-account-vector-icon-png-transparent-png.png";
-        notifyListeners();
 
-      }
-    });
-    return _imgUrl;
+    return preferences!.getString("photo_url")??"https://www.pngitem.com/pimgs/m/9-93862_my-account-account-vector-icon-png-transparent-png.png";
   }
 
   String fullName() {
-    getSharedPreferences().then((value) {
-      if (value != null) {
-        _fullName = value.getString("name")??"Not authenticated";
-        notifyListeners();
 
-      }
-    });
-    return _fullName;
+    return preferences!.getString("name")??"unknown";
   }
 
   Status get loginStatus => _loginStatus;

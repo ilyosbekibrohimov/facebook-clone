@@ -631,3 +631,315 @@ class FetchPostsByPage extends $pb.GeneratedMessage {
   static FetchPostsByPage? _defaultInstance;
 }
 
+class FetchCommentsByPost_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchCommentsByPost.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'postId', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchCommentsByPost_Request._() : super();
+  factory FetchCommentsByPost_Request({
+    $core.int? postId,
+  }) {
+    final _result = create();
+    if (postId != null) {
+      _result.postId = postId;
+    }
+    return _result;
+  }
+  factory FetchCommentsByPost_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchCommentsByPost_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchCommentsByPost_Request clone() => FetchCommentsByPost_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchCommentsByPost_Request copyWith(void Function(FetchCommentsByPost_Request) updates) => super.copyWith((message) => updates(message as FetchCommentsByPost_Request)) as FetchCommentsByPost_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchCommentsByPost_Request create() => FetchCommentsByPost_Request._();
+  FetchCommentsByPost_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchCommentsByPost_Request> createRepeated() => $pb.PbList<FetchCommentsByPost_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchCommentsByPost_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchCommentsByPost_Request>(create);
+  static FetchCommentsByPost_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get postId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set postId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPostId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPostId() => clearField(1);
+}
+
+class FetchCommentsByPost_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchCommentsByPost.Response', createEmptyInstance: create)
+    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
+    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userPhotoUrl', protoName: 'userPhotoUrl')
+    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userName', protoName: 'userName')
+    ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  FetchCommentsByPost_Response._() : super();
+  factory FetchCommentsByPost_Response({
+    $core.Iterable<$core.String>? content,
+    $core.Iterable<$core.String>? userPhotoUrl,
+    $core.Iterable<$core.String>? userName,
+    $core.bool? success,
+  }) {
+    final _result = create();
+    if (content != null) {
+      _result.content.addAll(content);
+    }
+    if (userPhotoUrl != null) {
+      _result.userPhotoUrl.addAll(userPhotoUrl);
+    }
+    if (userName != null) {
+      _result.userName.addAll(userName);
+    }
+    if (success != null) {
+      _result.success = success;
+    }
+    return _result;
+  }
+  factory FetchCommentsByPost_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchCommentsByPost_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchCommentsByPost_Response clone() => FetchCommentsByPost_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchCommentsByPost_Response copyWith(void Function(FetchCommentsByPost_Response) updates) => super.copyWith((message) => updates(message as FetchCommentsByPost_Response)) as FetchCommentsByPost_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchCommentsByPost_Response create() => FetchCommentsByPost_Response._();
+  FetchCommentsByPost_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchCommentsByPost_Response> createRepeated() => $pb.PbList<FetchCommentsByPost_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchCommentsByPost_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchCommentsByPost_Response>(create);
+  static FetchCommentsByPost_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.String> get content => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get userPhotoUrl => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get userName => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.bool get success => $_getBF(3);
+  @$pb.TagNumber(4)
+  set success($core.bool v) { $_setBool(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSuccess() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSuccess() => clearField(4);
+}
+
+class FetchCommentsByPost extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchCommentsByPost', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchCommentsByPost._() : super();
+  factory FetchCommentsByPost() => create();
+  factory FetchCommentsByPost.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchCommentsByPost.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchCommentsByPost clone() => FetchCommentsByPost()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchCommentsByPost copyWith(void Function(FetchCommentsByPost) updates) => super.copyWith((message) => updates(message as FetchCommentsByPost)) as FetchCommentsByPost; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchCommentsByPost create() => FetchCommentsByPost._();
+  FetchCommentsByPost createEmptyInstance() => create();
+  static $pb.PbList<FetchCommentsByPost> createRepeated() => $pb.PbList<FetchCommentsByPost>();
+  @$core.pragma('dart2js:noInline')
+  static FetchCommentsByPost getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchCommentsByPost>(create);
+  static FetchCommentsByPost? _defaultInstance;
+}
+
+class CreateComment_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateComment.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'postId', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.O3)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
+    ..hasRequiredFields = false
+  ;
+
+  CreateComment_Request._() : super();
+  factory CreateComment_Request({
+    $core.int? id,
+    $core.int? postId,
+    $core.int? userId,
+    $core.String? content,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (postId != null) {
+      _result.postId = postId;
+    }
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    if (content != null) {
+      _result.content = content;
+    }
+    return _result;
+  }
+  factory CreateComment_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateComment_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateComment_Request clone() => CreateComment_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateComment_Request copyWith(void Function(CreateComment_Request) updates) => super.copyWith((message) => updates(message as CreateComment_Request)) as CreateComment_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateComment_Request create() => CreateComment_Request._();
+  CreateComment_Request createEmptyInstance() => create();
+  static $pb.PbList<CreateComment_Request> createRepeated() => $pb.PbList<CreateComment_Request>();
+  @$core.pragma('dart2js:noInline')
+  static CreateComment_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateComment_Request>(create);
+  static CreateComment_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get id => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set id($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get postId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set postId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPostId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPostId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get userId => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set userId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasUserId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUserId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get content => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set content($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasContent() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearContent() => clearField(4);
+}
+
+class CreateComment_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateComment.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  CreateComment_Response._() : super();
+  factory CreateComment_Response({
+    $core.bool? success,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    return _result;
+  }
+  factory CreateComment_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateComment_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateComment_Response clone() => CreateComment_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateComment_Response copyWith(void Function(CreateComment_Response) updates) => super.copyWith((message) => updates(message as CreateComment_Response)) as CreateComment_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateComment_Response create() => CreateComment_Response._();
+  CreateComment_Response createEmptyInstance() => create();
+  static $pb.PbList<CreateComment_Response> createRepeated() => $pb.PbList<CreateComment_Response>();
+  @$core.pragma('dart2js:noInline')
+  static CreateComment_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateComment_Response>(create);
+  static CreateComment_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class CreateComment extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateComment', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  CreateComment._() : super();
+  factory CreateComment() => create();
+  factory CreateComment.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateComment.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateComment clone() => CreateComment()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateComment copyWith(void Function(CreateComment) updates) => super.copyWith((message) => updates(message as CreateComment)) as CreateComment; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateComment create() => CreateComment._();
+  CreateComment createEmptyInstance() => create();
+  static $pb.PbList<CreateComment> createRepeated() => $pb.PbList<CreateComment>();
+  @$core.pragma('dart2js:noInline')
+  static CreateComment getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateComment>(create);
+  static CreateComment? _defaultInstance;
+}
+

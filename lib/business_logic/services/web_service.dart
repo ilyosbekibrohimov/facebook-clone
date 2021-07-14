@@ -1,4 +1,6 @@
+
 import 'package:grpc/grpc.dart';
+import 'package:grpc_client/models/comment_model.dart';
 import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/utils/generated_files/posts.pb.dart';
 import 'package:grpc_client/utils/generated_files/posts.pbgrpc.dart';
@@ -29,7 +31,7 @@ class WebService {
     try {
       final response = await stub.fetchPostDetails(FetchPostDetails_Request()..postId = id);
 
-      return Post.create(response.title, response.content, response.pictureBlob);
+      return Post.create(response.title, response.content, response.pictureBlob, id);
     } catch (e) {
       print(e);
       return null;
@@ -43,15 +45,15 @@ class WebService {
       final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
       if (response.success) {
         for (int i = 0; i < response.title.length; i++) {
-          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i]));
+          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i]));
         }
       } else {
-        posts.add(Post.create("none", "none", []));
+        posts.add(Post.create("none", "none", [], -1));
       }
       return posts;
     } catch (e) {
       print(e);
-      posts.add(Post.create(e.toString(), e.toString(), []));
+      posts.add(Post.create(e.toString(), e.toString(), [], -1));
       return posts;
     }
   }
@@ -67,11 +69,58 @@ class WebService {
     return null;
   }
 
+  static Future<bool> createComment(int userId, int postId,  String content)async{
+    try{
+      final stub = PostServiceClient(WebService.channel()!);
+      final response  = await stub.createComment(CreateComment_Request()
+        ..userId = userId
+        ..postId = postId
+        ..content = content
+
+      );
+      if(response.success) {
+        print('hey you did it');
+        return true;
+      }
+      else return false;
+    }
+    catch(e){
+      print(e);
+      return false;
+    }
+  }
+
+  static Future<List<Comment?>> fetchCommentsByID(int id) async{
+
+    List<Comment?> comments = [];
+    try{
+      final stub = PostServiceClient(WebService.channel()!);
+      final response =await stub.fetchComments(FetchCommentsByPost_Request()..postId = id);
+      if(response.success){
+        for(int i = 0; i<response.content.length; i++){
+          print(response.content[i]);
+          comments.add(Comment.create(response.content[i], response.userName[i], response.userPhotoUrl[i]));
+        }
+        return comments;
+      }
+      else return [];
+
+    }
+    catch(e){
+      print(e);
+      return  [];
+    }
+  }
+
+
   //open channel if it is null
   static ClientChannel? channel() {
+
     if (_channel == null) {
       _channel = ClientChannel('192.168.0.101', port: 50051, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
     }
     return _channel;
   }
+
+
 }

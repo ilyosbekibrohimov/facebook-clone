@@ -54,9 +54,7 @@ class _AuthScreenState extends State<AuthScreen> {
                MaterialButton(color: Colors.blue, onPressed: () {
                  auth.signOut();
                  Navigator.pop(context);
-                 getSharedPreferences().then((value) {
-                   value!.clear();
-                 });
+                 preferences!.clear();
                  }, child: Text("Signout"), textColor: Colors.white,)
               ],
          ),
