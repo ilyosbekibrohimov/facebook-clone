@@ -30,6 +30,8 @@ class CommentWidget extends StatelessWidget {
             child: Column(
               children: [
                 Container(
+                  alignment: Alignment.centerLeft,
+
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 0.5), borderRadius: BorderRadius.circular(15.0)),
                   child: Column(

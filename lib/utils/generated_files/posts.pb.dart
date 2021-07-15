@@ -152,6 +152,8 @@ class UploadPost_Request extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
     ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY)
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
     ..hasRequiredFields = false
   ;
 
@@ -161,6 +163,8 @@ class UploadPost_Request extends $pb.GeneratedMessage {
     $core.String? content,
     $core.List<$core.int>? pictureBlob,
     $core.String? id,
+    $core.String? userId,
+    $core.String? timestamp,
   }) {
     final _result = create();
     if (title != null) {
@@ -174,6 +178,12 @@ class UploadPost_Request extends $pb.GeneratedMessage {
     }
     if (id != null) {
       _result.id = id;
+    }
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    if (timestamp != null) {
+      _result.timestamp = timestamp;
     }
     return _result;
   }
@@ -233,6 +243,24 @@ class UploadPost_Request extends $pb.GeneratedMessage {
   $core.bool hasId() => $_has(3);
   @$pb.TagNumber(4)
   void clearId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get userId => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set userId($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasUserId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearUserId() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get timestamp => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set timestamp($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasTimestamp() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearTimestamp() => clearField(6);
 }
 
 class UploadPost_Response extends $pb.GeneratedMessage {
@@ -364,6 +392,9 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorName')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorPhotoUrl', protoName: 'creator_photoUrl')
+    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numberOfLikes', $pb.PbFieldType.O3, protoName: 'numberOfLikes')
     ..hasRequiredFields = false
   ;
 
@@ -373,6 +404,9 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
     $core.String? title,
     $core.String? content,
     $core.List<$core.int>? pictureBlob,
+    $core.String? creatorName,
+    $core.String? creatorPhotoUrl,
+    $core.int? numberOfLikes,
   }) {
     final _result = create();
     if (success != null) {
@@ -386,6 +420,15 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
     }
     if (pictureBlob != null) {
       _result.pictureBlob = pictureBlob;
+    }
+    if (creatorName != null) {
+      _result.creatorName = creatorName;
+    }
+    if (creatorPhotoUrl != null) {
+      _result.creatorPhotoUrl = creatorPhotoUrl;
+    }
+    if (numberOfLikes != null) {
+      _result.numberOfLikes = numberOfLikes;
     }
     return _result;
   }
@@ -445,6 +488,33 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
   $core.bool hasPictureBlob() => $_has(3);
   @$pb.TagNumber(4)
   void clearPictureBlob() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get creatorName => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set creatorName($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasCreatorName() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCreatorName() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get creatorPhotoUrl => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set creatorPhotoUrl($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCreatorPhotoUrl() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCreatorPhotoUrl() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.int get numberOfLikes => $_getIZ(6);
+  @$pb.TagNumber(7)
+  set numberOfLikes($core.int v) { $_setSignedInt32(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasNumberOfLikes() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearNumberOfLikes() => clearField(7);
 }
 
 class FetchPostDetails extends $pb.GeneratedMessage {
@@ -529,7 +599,10 @@ class FetchPostsByPage_Response extends $pb.GeneratedMessage {
     ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
     ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
     ..p<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.PY, protoName: 'pictureBlob')
-    ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorNames')
+    ..pPS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorsPhotoUrl')
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..p<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numberOfLikes', $pb.PbFieldType.P3, protoName: 'numberOfLikes')
     ..hasRequiredFields = false
   ;
 
@@ -539,7 +612,10 @@ class FetchPostsByPage_Response extends $pb.GeneratedMessage {
     $core.Iterable<$core.String>? title,
     $core.Iterable<$core.String>? content,
     $core.Iterable<$core.List<$core.int>>? pictureBlob,
+    $core.Iterable<$core.String>? creatorNames,
+    $core.Iterable<$core.String>? creatorsPhotoUrl,
     $core.bool? success,
+    $core.Iterable<$core.int>? numberOfLikes,
   }) {
     final _result = create();
     if (id != null) {
@@ -554,8 +630,17 @@ class FetchPostsByPage_Response extends $pb.GeneratedMessage {
     if (pictureBlob != null) {
       _result.pictureBlob.addAll(pictureBlob);
     }
+    if (creatorNames != null) {
+      _result.creatorNames.addAll(creatorNames);
+    }
+    if (creatorsPhotoUrl != null) {
+      _result.creatorsPhotoUrl.addAll(creatorsPhotoUrl);
+    }
     if (success != null) {
       _result.success = success;
+    }
+    if (numberOfLikes != null) {
+      _result.numberOfLikes.addAll(numberOfLikes);
     }
     return _result;
   }
@@ -593,13 +678,22 @@ class FetchPostsByPage_Response extends $pb.GeneratedMessage {
   $core.List<$core.List<$core.int>> get pictureBlob => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.bool get success => $_getBF(4);
-  @$pb.TagNumber(5)
-  set success($core.bool v) { $_setBool(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasSuccess() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearSuccess() => clearField(5);
+  $core.List<$core.String> get creatorNames => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.String> get creatorsPhotoUrl => $_getList(5);
+
+  @$pb.TagNumber(7)
+  $core.bool get success => $_getBF(6);
+  @$pb.TagNumber(7)
+  set success($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasSuccess() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearSuccess() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.List<$core.int> get numberOfLikes => $_getList(7);
 }
 
 class FetchPostsByPage extends $pb.GeneratedMessage {
@@ -941,5 +1035,156 @@ class CreateComment extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static CreateComment getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateComment>(create);
   static CreateComment? _defaultInstance;
+}
+
+class LikePost_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LikePost.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'postId', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.O3)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
+    ..hasRequiredFields = false
+  ;
+
+  LikePost_Request._() : super();
+  factory LikePost_Request({
+    $core.int? postId,
+    $core.int? userId,
+    $core.String? timestamp,
+  }) {
+    final _result = create();
+    if (postId != null) {
+      _result.postId = postId;
+    }
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    if (timestamp != null) {
+      _result.timestamp = timestamp;
+    }
+    return _result;
+  }
+  factory LikePost_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory LikePost_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  LikePost_Request clone() => LikePost_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  LikePost_Request copyWith(void Function(LikePost_Request) updates) => super.copyWith((message) => updates(message as LikePost_Request)) as LikePost_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static LikePost_Request create() => LikePost_Request._();
+  LikePost_Request createEmptyInstance() => create();
+  static $pb.PbList<LikePost_Request> createRepeated() => $pb.PbList<LikePost_Request>();
+  @$core.pragma('dart2js:noInline')
+  static LikePost_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LikePost_Request>(create);
+  static LikePost_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get postId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set postId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPostId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPostId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get userId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get timestamp => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set timestamp($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTimestamp() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTimestamp() => clearField(3);
+}
+
+class LikePost_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LikePost.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  LikePost_Response._() : super();
+  factory LikePost_Response({
+    $core.bool? success,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    return _result;
+  }
+  factory LikePost_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory LikePost_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  LikePost_Response clone() => LikePost_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  LikePost_Response copyWith(void Function(LikePost_Response) updates) => super.copyWith((message) => updates(message as LikePost_Response)) as LikePost_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static LikePost_Response create() => LikePost_Response._();
+  LikePost_Response createEmptyInstance() => create();
+  static $pb.PbList<LikePost_Response> createRepeated() => $pb.PbList<LikePost_Response>();
+  @$core.pragma('dart2js:noInline')
+  static LikePost_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LikePost_Response>(create);
+  static LikePost_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class LikePost extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LikePost', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  LikePost._() : super();
+  factory LikePost() => create();
+  factory LikePost.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory LikePost.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  LikePost clone() => LikePost()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  LikePost copyWith(void Function(LikePost) updates) => super.copyWith((message) => updates(message as LikePost)) as LikePost; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static LikePost create() => LikePost._();
+  LikePost createEmptyInstance() => create();
+  static $pb.PbList<LikePost> createRepeated() => $pb.PbList<LikePost>();
+  @$core.pragma('dart2js:noInline')
+  static LikePost getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LikePost>(create);
+  static LikePost? _defaultInstance;
 }
 

@@ -1,10 +1,12 @@
 class Post {
+  int  _postId;
   String _title;
   String _content;
   List<int>? _pictureBlob;
-  int  _postId;
-
-  Post.create(this._title, this._content, this._pictureBlob, this._postId);
+  String _userName;
+  String  _userPhotoUrl;
+  int  _numberOfLikes;
+  Post.create(this._title, this._content, this._pictureBlob, this._postId,  this._userName,  this._userPhotoUrl, this._numberOfLikes);
 
   List<int>? get pictureBlob => _pictureBlob;
 
@@ -12,5 +14,11 @@ class Post {
 
   String get content => _content;
 
+  String get userName => _userName;
+
   String get title => _title;
+
+  String get userPhotoUrl => _userPhotoUrl;
+
+  int get numberOfLikes => _numberOfLikes;
 }

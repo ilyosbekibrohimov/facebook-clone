@@ -47,6 +47,8 @@ const UploadPost_Request$json = const {
     const {'1': 'content', '3': 2, '4': 1, '5': 9, '10': 'content'},
     const {'1': 'picture_blob', '3': 3, '4': 1, '5': 12, '10': 'pictureBlob'},
     const {'1': 'id', '3': 4, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'user_id', '3': 5, '4': 1, '5': 9, '10': 'userId'},
+    const {'1': 'timestamp', '3': 6, '4': 1, '5': 9, '10': 'timestamp'},
   ],
 };
 
@@ -59,7 +61,7 @@ const UploadPost_Response$json = const {
 };
 
 /// Descriptor for `UploadPost`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List uploadPostDescriptor = $convert.base64Decode('CgpVcGxvYWRQb3N0GmwKB1JlcXVlc3QSFAoFdGl0bGUYASABKAlSBXRpdGxlEhgKB2NvbnRlbnQYAiABKAlSB2NvbnRlbnQSIQoMcGljdHVyZV9ibG9iGAMgASgMUgtwaWN0dXJlQmxvYhIOCgJpZBgEIAEoCVICaWQaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+final $typed_data.Uint8List uploadPostDescriptor = $convert.base64Decode('CgpVcGxvYWRQb3N0GqMBCgdSZXF1ZXN0EhQKBXRpdGxlGAEgASgJUgV0aXRsZRIYCgdjb250ZW50GAIgASgJUgdjb250ZW50EiEKDHBpY3R1cmVfYmxvYhgDIAEoDFILcGljdHVyZUJsb2ISDgoCaWQYBCABKAlSAmlkEhcKB3VzZXJfaWQYBSABKAlSBnVzZXJJZBIcCgl0aW1lc3RhbXAYBiABKAlSCXRpbWVzdGFtcBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 @$core.Deprecated('Use fetchPostDetailsDescriptor instead')
 const FetchPostDetails$json = const {
   '1': 'FetchPostDetails',
@@ -82,11 +84,14 @@ const FetchPostDetails_Response$json = const {
     const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
     const {'1': 'content', '3': 3, '4': 1, '5': 9, '10': 'content'},
     const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'creator_name', '3': 5, '4': 1, '5': 9, '10': 'creatorName'},
+    const {'1': 'creator_photoUrl', '3': 6, '4': 1, '5': 9, '10': 'creatorPhotoUrl'},
+    const {'1': 'numberOfLikes', '3': 7, '4': 1, '5': 5, '10': 'numberOfLikes'},
   ],
 };
 
 /// Descriptor for `FetchPostDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchPostDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3REZXRhaWxzGiIKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkGnYKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhgKB2NvbnRlbnQYAyABKAlSB2NvbnRlbnQSIAoLcGljdHVyZUJsb2IYBCABKAxSC3BpY3R1cmVCbG9i');
+final $typed_data.Uint8List fetchPostDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3REZXRhaWxzGiIKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkGuoBCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEhQKBXRpdGxlGAIgASgJUgV0aXRsZRIYCgdjb250ZW50GAMgASgJUgdjb250ZW50EiAKC3BpY3R1cmVCbG9iGAQgASgMUgtwaWN0dXJlQmxvYhIhCgxjcmVhdG9yX25hbWUYBSABKAlSC2NyZWF0b3JOYW1lEikKEGNyZWF0b3JfcGhvdG9VcmwYBiABKAlSD2NyZWF0b3JQaG90b1VybBIkCg1udW1iZXJPZkxpa2VzGAcgASgFUg1udW1iZXJPZkxpa2Vz');
 @$core.Deprecated('Use fetchPostsByPageDescriptor instead')
 const FetchPostsByPage$json = const {
   '1': 'FetchPostsByPage',
@@ -109,12 +114,15 @@ const FetchPostsByPage_Response$json = const {
     const {'1': 'title', '3': 2, '4': 3, '5': 9, '10': 'title'},
     const {'1': 'content', '3': 3, '4': 3, '5': 9, '10': 'content'},
     const {'1': 'pictureBlob', '3': 4, '4': 3, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'success', '3': 5, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'creator_names', '3': 5, '4': 3, '5': 9, '10': 'creatorNames'},
+    const {'1': 'creators_photo_url', '3': 6, '4': 3, '5': 9, '10': 'creatorsPhotoUrl'},
+    const {'1': 'numberOfLikes', '3': 8, '4': 3, '5': 5, '10': 'numberOfLikes'},
+    const {'1': 'success', '3': 7, '4': 1, '5': 8, '10': 'success'},
   ],
 };
 
 /// Descriptor for `FetchPostsByPage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchPostsByPageDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3RzQnlQYWdlGikKB1JlcXVlc3QSHgoKcGFnZU51bWJlchgBIAEoBVIKcGFnZU51bWJlchqGAQoIUmVzcG9uc2USDgoCaWQYASADKAVSAmlkEhQKBXRpdGxlGAIgAygJUgV0aXRsZRIYCgdjb250ZW50GAMgAygJUgdjb250ZW50EiAKC3BpY3R1cmVCbG9iGAQgAygMUgtwaWN0dXJlQmxvYhIYCgdzdWNjZXNzGAUgASgIUgdzdWNjZXNz');
+final $typed_data.Uint8List fetchPostsByPageDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3RzQnlQYWdlGikKB1JlcXVlc3QSHgoKcGFnZU51bWJlchgBIAEoBVIKcGFnZU51bWJlchr/AQoIUmVzcG9uc2USDgoCaWQYASADKAVSAmlkEhQKBXRpdGxlGAIgAygJUgV0aXRsZRIYCgdjb250ZW50GAMgAygJUgdjb250ZW50EiAKC3BpY3R1cmVCbG9iGAQgAygMUgtwaWN0dXJlQmxvYhIjCg1jcmVhdG9yX25hbWVzGAUgAygJUgxjcmVhdG9yTmFtZXMSLAoSY3JlYXRvcnNfcGhvdG9fdXJsGAYgAygJUhBjcmVhdG9yc1Bob3RvVXJsEiQKDW51bWJlck9mTGlrZXMYCCADKAVSDW51bWJlck9mTGlrZXMSGAoHc3VjY2VzcxgHIAEoCFIHc3VjY2Vzcw==');
 @$core.Deprecated('Use fetchCommentsByPostDescriptor instead')
 const FetchCommentsByPost$json = const {
   '1': 'FetchCommentsByPost',
@@ -169,3 +177,29 @@ const CreateComment_Response$json = const {
 
 /// Descriptor for `CreateComment`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createCommentDescriptor = $convert.base64Decode('Cg1DcmVhdGVDb21tZW50GmUKB1JlcXVlc3QSDgoCaWQYASABKAVSAmlkEhcKB3Bvc3RfaWQYAiABKAVSBnBvc3RJZBIXCgd1c2VyX2lkGAMgASgFUgZ1c2VySWQSGAoHY29udGVudBgEIAEoCVIHY29udGVudBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+@$core.Deprecated('Use likePostDescriptor instead')
+const LikePost$json = const {
+  '1': 'LikePost',
+  '3': const [LikePost_Request$json, LikePost_Response$json],
+};
+
+@$core.Deprecated('Use likePostDescriptor instead')
+const LikePost_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'post_id', '3': 1, '4': 1, '5': 5, '10': 'postId'},
+    const {'1': 'user_id', '3': 2, '4': 1, '5': 5, '10': 'userId'},
+    const {'1': 'timestamp', '3': 3, '4': 1, '5': 9, '10': 'timestamp'},
+  ],
+};
+
+@$core.Deprecated('Use likePostDescriptor instead')
+const LikePost_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `LikePost`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List likePostDescriptor = $convert.base64Decode('CghMaWtlUG9zdBpZCgdSZXF1ZXN0EhcKB3Bvc3RfaWQYASABKAVSBnBvc3RJZBIXCgd1c2VyX2lkGAIgASgFUgZ1c2VySWQSHAoJdGltZXN0YW1wGAMgASgJUgl0aW1lc3RhbXAaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');

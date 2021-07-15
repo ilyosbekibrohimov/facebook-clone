@@ -40,9 +40,6 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
     }
 
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -108,7 +105,7 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
             borderRadius: BorderRadius.all(Radius.circular(20)),
             image: new DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider("https://i.pinimg.com/originals/79/0d/d1/790dd14ec36fd254e7909a4c07a723d8.jpg"),
+              image: CachedNetworkImageProvider("https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iKIWgaiJUtss/v2/-1x-1.jpg"),
             ),
           ),
         ),
@@ -130,6 +127,7 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
     );
   }
 
+
   Widget _buildCommentWidget() {
     return Column(
       children: [
@@ -141,7 +139,6 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
-
         Row(
           children: [
             Expanded(
@@ -152,6 +149,7 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: TextField(
                       controller: controller,
+
                       decoration: InputDecoration(
                         isDense: true, // Added this
                         contentPadding: EdgeInsets.all(8), //
@@ -166,25 +164,28 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
             Expanded(
               flex: 2,
               child: Container(
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  onPressed: () async {
-                    String? userId = preferences!.getString("user_id") ?? null;
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: () async {
+                      String? userId = preferences!.getString("user_id") ?? null;
 
-                    if (userId != null) {
-                      await WebService.createComment(int.parse(userId), widget.id, controller.text).then((value) {
-                        if (value)
-                          print("your comment is successful");
-                        else
-                          print("please try again");
-                      });
-                    } else {
-                      print("Please signin first!");
-                    }
-                  },
-                  child: Text("Submit"),
+                      if (userId != null) {
+                        await WebService.createComment(int.parse(userId), widget.id, controller.text).then((value) {
+                          if (value)
+                            print("your comment is successful");
+                          else
+                            print("please try again");
+                        });
+                      } else {
+                        print("Please signin first!");
+                      }
+                    },
+                    child: Text("Submit"),
+                  ),
                 ),
               ),
             ),

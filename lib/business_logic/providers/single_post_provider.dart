@@ -6,14 +6,20 @@ import 'package:grpc_client/utils/settings.dart';
 class PostProvider extends ChangeNotifier {
 
 
-  Future<bool> post(String title, String content, List<int> pictureBlob) async {
+  Future<bool> createPost(String title, String content, List<int> pictureBlob) async {
 
     bool  posted = false;
-
       posted = await WebService.post(title, content, pictureBlob, (preferences!.getString("user_id")??null)!);
       notifyListeners();
 
     return posted;
+  }
+
+  Future<bool> likePost(int userID,  int postID)async{
+    bool  success = false;
+    success = await WebService.likePost(userID, postID);
+
+    return success;
   }
 
 

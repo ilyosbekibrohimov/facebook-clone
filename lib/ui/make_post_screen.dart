@@ -180,7 +180,7 @@ class _PostBottomSheetState extends State<PostBottomSheet> {
               setState(() {
                 _loading = true;
               });
-            post.post(_titleController.text, _contentController.text, _pictureBlob).then((value) {
+            post.createPost(_titleController.text, _contentController.text, _pictureBlob).then((value) {
               setState(() {
                 _loading = false;
                 Navigator.pop(context);

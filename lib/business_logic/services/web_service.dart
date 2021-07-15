@@ -1,4 +1,4 @@
-
+import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:grpc_client/models/comment_model.dart';
 import 'package:grpc_client/models/post.dart';
@@ -16,7 +16,7 @@ class WebService {
         ..content = content
         ..pictureBlob = pictureBlob
         ..id = userId
-      );
+        ..timestamp = DateTime.now().millisecondsSinceEpoch.toString());
       print(response.success);
       return response.success;
     } catch (e) {
@@ -31,7 +31,10 @@ class WebService {
     try {
       final response = await stub.fetchPostDetails(FetchPostDetails_Request()..postId = id);
 
-      return Post.create(response.title, response.content, response.pictureBlob, id);
+      if (response.success) {
+        return Post.create(response.title, response.content, response.pictureBlob, id, response.creatorName, response.creatorPhotoUrl, response.numberOfLikes);
+      }
+      return null;
     } catch (e) {
       print(e);
       return null;
@@ -45,15 +48,15 @@ class WebService {
       final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
       if (response.success) {
         for (int i = 0; i < response.title.length; i++) {
-          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i]));
+          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i], response.creatorNames[i], response.creatorsPhotoUrl[i], response.numberOfLikes[i]));
         }
       } else {
-        posts.add(Post.create("none", "none", [], -1));
+        posts.add(Post.create("none", "none", [], -1, "unknown", "unknown", -1));
       }
       return posts;
     } catch (e) {
       print(e);
-      posts.add(Post.create(e.toString(), e.toString(), [], -1));
+      posts.add(Post.create(e.toString(), e.toString(), [], -1, "unknown", "unknown", -1));
       return posts;
     }
   }
@@ -69,58 +72,65 @@ class WebService {
     return null;
   }
 
-  static Future<bool> createComment(int userId, int postId,  String content)async{
-    try{
+  static Future<bool> createComment(int userId, int postId, String content) async {
+    try {
       final stub = PostServiceClient(WebService.channel()!);
-      final response  = await stub.createComment(CreateComment_Request()
+      final response = await stub.createComment(CreateComment_Request()
         ..userId = userId
         ..postId = postId
-        ..content = content
-
-      );
-      if(response.success) {
+        ..content = content);
+      if (response.success) {
         print('hey you did it');
         return true;
-      }
-      else return false;
-    }
-    catch(e){
+      } else
+        return false;
+    } catch (e) {
       print(e);
       return false;
     }
   }
 
-  static Future<List<Comment?>> fetchCommentsByID(int id) async{
-
+  static Future<List<Comment?>> fetchCommentsByID(int id) async {
     List<Comment?> comments = [];
-    try{
+    try {
       final stub = PostServiceClient(WebService.channel()!);
-      final response =await stub.fetchComments(FetchCommentsByPost_Request()..postId = id);
-      if(response.success){
-        for(int i = 0; i<response.content.length; i++){
+      final response = await stub.fetchComments(FetchCommentsByPost_Request()..postId = id);
+      if (response.success) {
+        for (int i = 0; i < response.content.length; i++) {
           print(response.content[i]);
           comments.add(Comment.create(response.content[i], response.userName[i], response.userPhotoUrl[i]));
         }
         return comments;
-      }
-      else return [];
-
-    }
-    catch(e){
+      } else
+        return [];
+    } catch (e) {
       print(e);
-      return  [];
+      return [];
     }
   }
 
+  static Future<bool> likePost(int userID, int postID) async {
+    try {
+      final stub = PostServiceClient(WebService.channel()!);
+      final response = await stub.likePost(LikePost_Request()
+        ..userId = userID
+        ..postId = postID
+        ..timestamp = DateTime.now().millisecondsSinceEpoch.toString());
+
+      if(response.success)
+         return true;
+      else return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 
   //open channel if it is null
   static ClientChannel? channel() {
-
     if (_channel == null) {
       _channel = ClientChannel('192.168.0.101', port: 50051, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
     }
     return _channel;
   }
-
-
 }

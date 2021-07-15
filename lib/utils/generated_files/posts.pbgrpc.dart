@@ -50,6 +50,12 @@ class PostServiceClient extends $grpc.Client {
       ($0.FetchCommentsByPost_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchCommentsByPost_Response.fromBuffer(value));
+  static final _$likePost =
+      $grpc.ClientMethod<$0.LikePost_Request, $0.LikePost_Response>(
+          '/PostService/likePost',
+          ($0.LikePost_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.LikePost_Response.fromBuffer(value));
 
   PostServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -90,6 +96,12 @@ class PostServiceClient extends $grpc.Client {
       $0.FetchCommentsByPost_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchComments, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.LikePost_Response> likePost(
+      $0.LikePost_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$likePost, request, options: options);
   }
 }
 
@@ -151,6 +163,13 @@ abstract class PostServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchCommentsByPost_Request.fromBuffer(value),
         ($0.FetchCommentsByPost_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.LikePost_Request, $0.LikePost_Response>(
+        'likePost',
+        likePost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.LikePost_Request.fromBuffer(value),
+        ($0.LikePost_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AuthenticateUser_Response> authenticateUser_Pre(
@@ -188,6 +207,11 @@ abstract class PostServiceBase extends $grpc.Service {
     return fetchComments(call, await request);
   }
 
+  $async.Future<$0.LikePost_Response> likePost_Pre($grpc.ServiceCall call,
+      $async.Future<$0.LikePost_Request> request) async {
+    return likePost(call, await request);
+  }
+
   $async.Future<$0.AuthenticateUser_Response> authenticateUser(
       $grpc.ServiceCall call, $0.AuthenticateUser_Request request);
   $async.Future<$0.UploadPost_Response> uploadPost(
@@ -200,4 +224,6 @@ abstract class PostServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.CreateComment_Request request);
   $async.Future<$0.FetchCommentsByPost_Response> fetchComments(
       $grpc.ServiceCall call, $0.FetchCommentsByPost_Request request);
+  $async.Future<$0.LikePost_Response> likePost(
+      $grpc.ServiceCall call, $0.LikePost_Request request);
 }
