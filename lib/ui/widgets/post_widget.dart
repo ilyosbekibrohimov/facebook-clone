@@ -1,7 +1,8 @@
+
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:grpc_client/business_logic/providers/single_post_provider.dart';
+import 'package:grpc_client/business_logic/providers/createpost_provider.dart';
 import 'package:grpc_client/utils/settings.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,7 @@ class PostWidget extends StatelessWidget {
                    post.postId,
                    post.pictureBlob,
                    modalHeight,
+                   post.isLiked
                  );
                },
                child: Container(
@@ -97,7 +99,7 @@ class PostWidget extends StatelessWidget {
                                    Container(
                                      child: MaterialButton(
                                        onPressed: () async {
-                                         await showDetailedViewBottomSheet(post.title, post.content, post.postId, post.pictureBlob, modalHeight);
+                                         await showDetailedViewBottomSheet(post.title, post.content, post.postId, post.pictureBlob, modalHeight, post.isLiked);
                                        },
                                        child: Text("...See more"),
                                        textColor: Colors.blue,
@@ -105,48 +107,7 @@ class PostWidget extends StatelessWidget {
                                    )
                                ],
                              )),
-                         Divider(),
-                         Expanded(
-                           flex: 2,
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                             children: [
-                               Wrap(
-                                 crossAxisAlignment: WrapCrossAlignment.center,
-                                 children: [
-                                   Text("0"),
-                                   IconButton(
-                                       onPressed: () {
-                                         String? userId = preferences!.getString("user_id") ?? null;
-                                         if (userId != null)
-                                           postProvider.likePost(int.parse(userId), post.postId).then((value) {
 
-
-                                           });
-                                       },
-                                       icon: Icon(
-                                         Icons.favorite,
-                                         color: Colors.red,
-                                       )),
-                                 ],
-                               ),
-                               Wrap(
-                                 crossAxisAlignment: WrapCrossAlignment.center,
-                                 children: [
-                                   Text("2"),
-                                   IconButton(onPressed: () {}, icon: Icon(Icons.comment)),
-                                 ],
-                               ),
-                               Wrap(
-                                 crossAxisAlignment: WrapCrossAlignment.center,
-                                 children: [
-                                   Text("24"),
-                                   IconButton(onPressed: () {}, icon: Icon(Icons.share_outlined)),
-                                 ],
-                               ),
-                             ],
-                           ),
-                         )
                        ],
                      )),
                ),

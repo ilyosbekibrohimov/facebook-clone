@@ -15,12 +15,7 @@ class PostProvider extends ChangeNotifier {
     return posted;
   }
 
-  Future<bool> likePost(int userID,  int postID)async{
-    bool  success = false;
-    success = await WebService.likePost(userID, postID);
 
-    return success;
-  }
 
 
 

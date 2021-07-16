@@ -1,11 +1,9 @@
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grpc_client/business_logic/providers/auth_provider.dart';
-import 'package:grpc_client/business_logic/providers/posts_provider.dart';
-import 'package:grpc_client/business_logic/providers/single_post_provider.dart';
+import 'package:grpc_client/business_logic/providers/mainscreen_provider.dart';
 import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/ui/auth_screen.dart';
 import 'package:grpc_client/ui/widgets/detailed%20post%20%20bottomsheet.dart';
@@ -59,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             return FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
-                if (value.loginStatus != Status.SignedOut)
+                if (preferences!.getString("user_id") != null)
                   Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet())).then((value) async {
                     await postsProvider.fetchPostsByPage(1);
                   });
@@ -172,14 +170,14 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> showDetailedViewBottomSheet(String title, String content, int postId, List<int>? pictureBlob, double height) async {
+  Future<void> showDetailedViewBottomSheet(String title, String content, int postId, List<int>? pictureBlob, double height, bool isLiked) async {
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
           //the rounded corner is created here
           borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
         ),
         context: context,
-        builder: (context) => DetailedPostBottomSheet(title, content, pictureBlob, height, postId),
+        builder: (context) => DetailedPostBottomSheet( height, postId, isLiked),
         isScrollControlled: true);
   }
 }

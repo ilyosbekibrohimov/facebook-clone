@@ -11,9 +11,6 @@ message AuthenticateUser {
   }
 }
 
-
-
-
 message  UploadPost{
   message Request{
     string title = 1;
@@ -31,6 +28,7 @@ message  UploadPost{
 message FetchPostDetails{
   message Request{
     int32 post_id = 1;
+    int32 user_id = 2;
   }
   message Response{
     bool  success = 1;
@@ -40,6 +38,7 @@ message FetchPostDetails{
     string creator_name = 5;
     string creator_photoUrl = 6;
     int32 numberOfLikes = 7;
+    bool  isLiked = 8;
   }
 }
 
@@ -57,7 +56,6 @@ message FetchPostsByPage{
     repeated bytes pictureBlob = 4;
     repeated string  creator_names = 5;
     repeated string  creators_photo_url = 6;
-    repeated int32 numberOfLikes = 8;
     bool success = 7;
   }
 }
@@ -97,6 +95,18 @@ message  LikePost{
   }
 }
 
+message UnlikePost{
+  message Request{
+    int32 post_id = 1;
+    int32 user_id = 2;
+    string timestamp = 3;
+  }
+
+  message Response{
+    bool  success = 1;
+  }
+}
+
 
 
 
@@ -110,6 +120,7 @@ service PostService{
   rpc createComment(CreateComment.Request) returns (CreateComment.Response){}
   rpc fetchComments(FetchCommentsByPost.Request) returns (FetchCommentsByPost.Response){}
   rpc likePost(LikePost.Request) returns (LikePost.Response){}
+  rpc unlikePost(UnlikePost.Request) returns (UnlikePost.Response){}
 
 }
 

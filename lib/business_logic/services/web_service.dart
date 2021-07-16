@@ -25,14 +25,14 @@ class WebService {
     }
   }
 
-  static Future<Post?> searchPostById(int id) async {
+  static Future<Post?> searchPostById(int postId,int userId) async {
     final stub = PostServiceClient(WebService.channel()!);
 
     try {
-      final response = await stub.fetchPostDetails(FetchPostDetails_Request()..postId = id);
+      final response = await stub.fetchPostDetails(FetchPostDetails_Request()..postId = postId..userId = userId);
 
       if (response.success) {
-        return Post.create(response.title, response.content, response.pictureBlob, id, response.creatorName, response.creatorPhotoUrl, response.numberOfLikes);
+        return Post.create(response.title, response.content, response.pictureBlob, postId, response.creatorName, response.creatorPhotoUrl, response.numberOfLikes,  response.isLiked);
       }
       return null;
     } catch (e) {
@@ -48,15 +48,15 @@ class WebService {
       final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
       if (response.success) {
         for (int i = 0; i < response.title.length; i++) {
-          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i], response.creatorNames[i], response.creatorsPhotoUrl[i], response.numberOfLikes[i]));
+          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i], response.creatorNames[i], response.creatorsPhotoUrl[i], -1,  false));
         }
       } else {
-        posts.add(Post.create("none", "none", [], -1, "unknown", "unknown", -1));
+        posts.add(Post.create("none", "none", [], -1, "unknown", "unknown", -1, false));
       }
       return posts;
     } catch (e) {
       print(e);
-      posts.add(Post.create(e.toString(), e.toString(), [], -1, "unknown", "unknown", -1));
+      posts.add(Post.create(e.toString(), e.toString(), [], -1, "unknown", "unknown", -1,  false));
       return posts;
     }
   }
@@ -90,6 +90,8 @@ class WebService {
     }
   }
 
+
+
   static Future<List<Comment?>> fetchCommentsByID(int id) async {
     List<Comment?> comments = [];
     try {
@@ -119,6 +121,22 @@ class WebService {
 
       if(response.success)
          return true;
+      else return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+  static Future<bool> unlikePost(int userID, int postID) async {
+    try {
+      final stub = PostServiceClient(WebService.channel()!);
+      final response = await stub.unlikePost(UnlikePost_Request()
+        ..userId = userID
+        ..postId = postID
+        ..timestamp = DateTime.now().millisecondsSinceEpoch.toString());
+
+      if(response.success)
+        return true;
       else return false;
     } catch (e) {
       print(e);

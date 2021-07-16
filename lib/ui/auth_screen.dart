@@ -7,7 +7,7 @@ import 'package:grpc_client/utils/strings.dart';
 import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen();
 
   @override
   _AuthScreenState createState() => _AuthScreenState();
@@ -18,7 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(body: Consumer<AuthProvider>(
       builder: (context, auth, child) {
-        if(auth.loginStatus == Status.SignedOut)
+        if(preferences!.getString("user_id") == null)
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
