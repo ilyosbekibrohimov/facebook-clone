@@ -62,6 +62,12 @@ class PostServiceClient extends $grpc.Client {
           ($0.UnlikePost_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.UnlikePost_Response.fromBuffer(value));
+  static final _$editPost =
+      $grpc.ClientMethod<$0.EditPost_Request, $0.EditPost_Response>(
+          '/PostService/editPost',
+          ($0.EditPost_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.EditPost_Response.fromBuffer(value));
 
   PostServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -114,6 +120,12 @@ class PostServiceClient extends $grpc.Client {
       $0.UnlikePost_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unlikePost, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.EditPost_Response> editPost(
+      $0.EditPost_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$editPost, request, options: options);
   }
 }
 
@@ -191,6 +203,13 @@ abstract class PostServiceBase extends $grpc.Service {
             ($core.List<$core.int> value) =>
                 $0.UnlikePost_Request.fromBuffer(value),
             ($0.UnlikePost_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.EditPost_Request, $0.EditPost_Response>(
+        'editPost',
+        editPost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.EditPost_Request.fromBuffer(value),
+        ($0.EditPost_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AuthenticateUser_Response> authenticateUser_Pre(
@@ -238,6 +257,11 @@ abstract class PostServiceBase extends $grpc.Service {
     return unlikePost(call, await request);
   }
 
+  $async.Future<$0.EditPost_Response> editPost_Pre($grpc.ServiceCall call,
+      $async.Future<$0.EditPost_Request> request) async {
+    return editPost(call, await request);
+  }
+
   $async.Future<$0.AuthenticateUser_Response> authenticateUser(
       $grpc.ServiceCall call, $0.AuthenticateUser_Request request);
   $async.Future<$0.UploadPost_Response> uploadPost(
@@ -254,4 +278,6 @@ abstract class PostServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.LikePost_Request request);
   $async.Future<$0.UnlikePost_Response> unlikePost(
       $grpc.ServiceCall call, $0.UnlikePost_Request request);
+  $async.Future<$0.EditPost_Response> editPost(
+      $grpc.ServiceCall call, $0.EditPost_Request request);
 }

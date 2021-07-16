@@ -409,7 +409,8 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorName')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorPhotoUrl', protoName: 'creator_photoUrl')
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numberOfLikes', $pb.PbFieldType.O3, protoName: 'numberOfLikes')
-    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isLiked', protoName: 'isLiked')
+    ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.O3)
+    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isLiked', protoName: 'isLiked')
     ..hasRequiredFields = false
   ;
 
@@ -422,6 +423,7 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
     $core.String? creatorName,
     $core.String? creatorPhotoUrl,
     $core.int? numberOfLikes,
+    $core.int? userId,
     $core.bool? isLiked,
   }) {
     final _result = create();
@@ -445,6 +447,9 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
     }
     if (numberOfLikes != null) {
       _result.numberOfLikes = numberOfLikes;
+    }
+    if (userId != null) {
+      _result.userId = userId;
     }
     if (isLiked != null) {
       _result.isLiked = isLiked;
@@ -536,13 +541,22 @@ class FetchPostDetails_Response extends $pb.GeneratedMessage {
   void clearNumberOfLikes() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.bool get isLiked => $_getBF(7);
+  $core.int get userId => $_getIZ(7);
   @$pb.TagNumber(8)
-  set isLiked($core.bool v) { $_setBool(7, v); }
+  set userId($core.int v) { $_setSignedInt32(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasIsLiked() => $_has(7);
+  $core.bool hasUserId() => $_has(7);
   @$pb.TagNumber(8)
-  void clearIsLiked() => clearField(8);
+  void clearUserId() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.bool get isLiked => $_getBF(8);
+  @$pb.TagNumber(9)
+  set isLiked($core.bool v) { $_setBool(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasIsLiked() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearIsLiked() => clearField(9);
 }
 
 class FetchPostDetails extends $pb.GeneratedMessage {
@@ -1357,5 +1371,184 @@ class UnlikePost extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UnlikePost getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnlikePost>(create);
   static UnlikePost? _defaultInstance;
+}
+
+class EditPost_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditPost.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'postId', $pb.PbFieldType.O3)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
+    ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..hasRequiredFields = false
+  ;
+
+  EditPost_Request._() : super();
+  factory EditPost_Request({
+    $core.int? userId,
+    $core.int? postId,
+    $core.String? title,
+    $core.String? content,
+    $core.List<$core.int>? pictureBlob,
+  }) {
+    final _result = create();
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    if (postId != null) {
+      _result.postId = postId;
+    }
+    if (title != null) {
+      _result.title = title;
+    }
+    if (content != null) {
+      _result.content = content;
+    }
+    if (pictureBlob != null) {
+      _result.pictureBlob = pictureBlob;
+    }
+    return _result;
+  }
+  factory EditPost_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditPost_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  EditPost_Request clone() => EditPost_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  EditPost_Request copyWith(void Function(EditPost_Request) updates) => super.copyWith((message) => updates(message as EditPost_Request)) as EditPost_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static EditPost_Request create() => EditPost_Request._();
+  EditPost_Request createEmptyInstance() => create();
+  static $pb.PbList<EditPost_Request> createRepeated() => $pb.PbList<EditPost_Request>();
+  @$core.pragma('dart2js:noInline')
+  static EditPost_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditPost_Request>(create);
+  static EditPost_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get userId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get postId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set postId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPostId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPostId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get title => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set title($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTitle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTitle() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get content => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set content($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasContent() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearContent() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.int> get pictureBlob => $_getN(4);
+  @$pb.TagNumber(5)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasPictureBlob() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPictureBlob() => clearField(5);
+}
+
+class EditPost_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditPost.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  EditPost_Response._() : super();
+  factory EditPost_Response({
+    $core.bool? success,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    return _result;
+  }
+  factory EditPost_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditPost_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  EditPost_Response clone() => EditPost_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  EditPost_Response copyWith(void Function(EditPost_Response) updates) => super.copyWith((message) => updates(message as EditPost_Response)) as EditPost_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static EditPost_Response create() => EditPost_Response._();
+  EditPost_Response createEmptyInstance() => create();
+  static $pb.PbList<EditPost_Response> createRepeated() => $pb.PbList<EditPost_Response>();
+  @$core.pragma('dart2js:noInline')
+  static EditPost_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditPost_Response>(create);
+  static EditPost_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class EditPost extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditPost', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  EditPost._() : super();
+  factory EditPost() => create();
+  factory EditPost.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory EditPost.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  EditPost clone() => EditPost()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  EditPost copyWith(void Function(EditPost) updates) => super.copyWith((message) => updates(message as EditPost)) as EditPost; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static EditPost create() => EditPost._();
+  EditPost createEmptyInstance() => create();
+  static $pb.PbList<EditPost> createRepeated() => $pb.PbList<EditPost>();
+  @$core.pragma('dart2js:noInline')
+  static EditPost getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditPost>(create);
+  static EditPost? _defaultInstance;
 }
 

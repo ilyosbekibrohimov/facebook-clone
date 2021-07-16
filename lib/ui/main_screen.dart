@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Icon(Icons.add),
               onPressed: () {
                 if (preferences!.getString("user_id") != null)
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet())).then((value) async {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet(PostMode.CREATE, -1, -1, null, null))).then((value) async {
                     await postsProvider.fetchPostsByPage(1);
                   });
                 else

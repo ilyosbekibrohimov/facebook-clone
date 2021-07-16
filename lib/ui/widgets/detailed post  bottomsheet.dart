@@ -2,19 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc_client/business_logic/providers/detailedpost_provider.dart';
 import 'package:grpc_client/business_logic/services/web_service.dart';
-import 'package:grpc_client/models/post.dart';
 import 'package:grpc_client/ui/widgets/comment_widget.dart';
 import 'package:grpc_client/utils/settings.dart';
-import 'package:http/http.dart';
-import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
+
+import '../make_post_screen.dart';
 
 class DetailedPostBottomSheet extends StatefulWidget {
   final isLiked;
   final height;
   int id;
   bool fetched = false;
-  bool  isPostLiked  = false;
+  bool isPostLiked = false;
 
   DetailedPostBottomSheet(this.height, this.id, this.isLiked);
 
@@ -26,7 +25,6 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
   final controller = TextEditingController();
   DetailedPostProvider detailedProvider = DetailedPostProvider();
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -37,18 +35,16 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
         print("done");
       });
 
-      if(preferences!.getString("user_id") != null){
+      if (preferences!.getString("user_id") != null) {
         String? userId = preferences!.getString("user_id");
-        detailedProvider.fetchPostDetails(widget.id, int.parse(userId!)).then((value){
-          if(detailedProvider.singlePost!.isLiked)
+        detailedProvider.fetchPostDetails(widget.id, int.parse(userId!)).then((value) {
+          if (detailedProvider.singlePost!.isLiked)
             widget.isPostLiked = true;
-
-          else widget.isPostLiked = false;
+          else
+            widget.isPostLiked = false;
         });
-      }
-      else
-        detailedProvider.fetchPostDetails(widget.id, -1).then((value){
-        });
+      } else
+        detailedProvider.fetchPostDetails(widget.id, -1).then((value) {});
       widget.fetched = true;
     }
   }
@@ -86,6 +82,29 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
                 Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_back)),
+          Spacer(),
+          if (preferences!.getString("user_id") != null)
+            if (int.parse(preferences!.getString("user_id") ?? "-1") == detailedProvider.singlePost!.userId)
+              Container(
+                  margin: EdgeInsets.only(right: 10.0),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PostBottomSheet(PostMode.EDIT, detailedProvider.singlePost!.userId, detailedProvider.singlePost!.postId, detailedProvider.singlePost!.title, detailedProvider.singlePost!.content)));
+                    },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.green,
+                    child: Icon(Icons.edit,  color: Colors.white,),
+                  ))),
+
+          if (preferences!.getString("user_id") != null)
+            if (int.parse(preferences!.getString("user_id") ?? "-1") == detailedProvider.singlePost!.userId)
+              Container(
+                  margin: EdgeInsets.only(right: 10.0),
+                  child: InkWell(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.green,
+                        child: Icon(Icons.delete,  color: Colors.white,),
+                      )))
         ],
       ),
     );
@@ -95,7 +114,7 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
     return CommentWidget(userName, photoUrl, content);
   }
 
-  Widget _buildMainWidget(bool  isLiked) {
+  Widget _buildMainWidget(bool isLiked) {
     print("liked $isLiked");
     String? userId = preferences!.getString("user_id") ?? null;
     return Column(
@@ -107,7 +126,7 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
         Container(
           alignment: Alignment.center,
           child: Text(
-            detailedProvider.singlePost!.title??"none",
+            detailedProvider.singlePost!.title ?? "none",
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
@@ -132,48 +151,49 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
                 width: 70,
                 decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.only(topRight: Radius.circular(20.0), bottomLeft: Radius.circular(20.0))),
                 margin: EdgeInsets.only(top: 10.0, right: 10.0),
-                child:
-
-              !widget.isPostLiked?  IconButton(
-                  icon: Icon(
-                    Icons.favorite_border,
-                    color: Colors.red,
-                    size: 50,
-                  ),
-                  onPressed: () {
-                    if (userId != null)
-                      detailedProvider.likePost(int.parse(userId), widget.id).then((value) {
-                        if (value) {
-                          if(value)
-                            setState(() {
-                              widget.isPostLiked = true;
+                child: !widget.isPostLiked
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: Colors.red,
+                          size: 50,
+                        ),
+                        onPressed: () {
+                          if (userId != null)
+                            detailedProvider.likePost(int.parse(userId), widget.id).then((value) {
+                              if (value) {
+                                if (value)
+                                  setState(() {
+                                    widget.isPostLiked = true;
+                                  });
+                              } else {
+                                showToast("Sorry,error wrong happened");
+                              }
                             });
-                        }
-                        else {
-                          showToast("Sorry,error wrong happened");
-                        }
-                      });
-                    else
-                      print("please authentication first");
-                  },
-                ): IconButton(onPressed: (){
-                if (userId != null)
-                  detailedProvider.unlikePost(int.parse(userId), widget.id).then((value) {
-                    if (value) {
-                      if(value)
-                        setState(() {
-                          widget.isPostLiked = false ;
-                        });
-                    }
-                    else {
-                      showToast("Sorry,error wrong happened");
-                    }
-                  });
-                else
-                  showToast("Please sign in first!");
-
-
-              }, icon: Icon(Icons.favorite),  iconSize: 50, color: Colors.red,))
+                          else
+                            print("please authentication first");
+                        },
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          if (userId != null)
+                            detailedProvider.unlikePost(int.parse(userId), widget.id).then((value) {
+                              if (value) {
+                                if (value)
+                                  setState(() {
+                                    widget.isPostLiked = false;
+                                  });
+                              } else {
+                                showToast("Sorry,error wrong happened");
+                              }
+                            });
+                          else
+                            showToast("Please sign in first!");
+                        },
+                        icon: Icon(Icons.favorite),
+                        iconSize: 50,
+                        color: Colors.red,
+                      ))
           ],
         ),
         Container(
@@ -182,7 +202,7 @@ class _DetailedPostBottomSheetState extends State<DetailedPostBottomSheet> {
           margin: EdgeInsets.all(10),
           alignment: Alignment.centerLeft,
           child: Text(
-            detailedProvider.singlePost!.content??"none",
+            detailedProvider.singlePost!.content ?? "none",
             style: TextStyle(fontSize: 18),
           ),
         ),

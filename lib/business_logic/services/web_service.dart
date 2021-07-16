@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:grpc_client/models/comment_model.dart';
@@ -25,14 +27,16 @@ class WebService {
     }
   }
 
-  static Future<Post?> searchPostById(int postId,int userId) async {
+  static Future<Post?> searchPostById(int postId, int userId) async {
     final stub = PostServiceClient(WebService.channel()!);
 
     try {
-      final response = await stub.fetchPostDetails(FetchPostDetails_Request()..postId = postId..userId = userId);
+      final response = await stub.fetchPostDetails(FetchPostDetails_Request()
+        ..postId = postId
+        ..userId = userId);
 
       if (response.success) {
-        return Post.create(response.title, response.content, response.pictureBlob, postId, response.creatorName, response.creatorPhotoUrl, response.numberOfLikes,  response.isLiked);
+        return Post.create(response.title, response.content, response.pictureBlob, postId, response.creatorName, response.creatorPhotoUrl, response.numberOfLikes, response.isLiked, response.userId);
       }
       return null;
     } catch (e) {
@@ -48,15 +52,15 @@ class WebService {
       final response = await stub.fetchPosts(FetchPostsByPage_Request()..pageNumber = pageNumber);
       if (response.success) {
         for (int i = 0; i < response.title.length; i++) {
-          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i], response.creatorNames[i], response.creatorsPhotoUrl[i], -1,  false));
+          posts.add(Post.create(response.title[i], response.content[i], response.pictureBlob[i], response.id[i], response.creatorNames[i], response.creatorsPhotoUrl[i], -1, false, -1));
         }
       } else {
-        posts.add(Post.create("none", "none", [], -1, "unknown", "unknown", -1, false));
+        posts.add(Post.create("none", "none", [], -1, "unknown", "unknown", -1, false, -1));
       }
       return posts;
     } catch (e) {
       print(e);
-      posts.add(Post.create(e.toString(), e.toString(), [], -1, "unknown", "unknown", -1,  false));
+      posts.add(Post.create(e.toString(), e.toString(), [], -1, "unknown", "unknown", -1, false, -1));
       return posts;
     }
   }
@@ -90,8 +94,6 @@ class WebService {
     }
   }
 
-
-
   static Future<List<Comment?>> fetchCommentsByID(int id) async {
     List<Comment?> comments = [];
     try {
@@ -119,14 +121,16 @@ class WebService {
         ..postId = postID
         ..timestamp = DateTime.now().millisecondsSinceEpoch.toString());
 
-      if(response.success)
-         return true;
-      else return false;
+      if (response.success)
+        return true;
+      else
+        return false;
     } catch (e) {
       print(e);
       return false;
     }
   }
+
   static Future<bool> unlikePost(int userID, int postID) async {
     try {
       final stub = PostServiceClient(WebService.channel()!);
@@ -135,9 +139,30 @@ class WebService {
         ..postId = postID
         ..timestamp = DateTime.now().millisecondsSinceEpoch.toString());
 
-      if(response.success)
+      if (response.success)
         return true;
-      else return false;
+      else
+        return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  static Future<bool> editPost(int userId, int postId, String title, String content, List<int> pictureBlob) async {
+    try {
+      final stub = PostServiceClient(WebService.channel()!);
+      final response = await stub.editPost(EditPost_Request()
+        ..userId = userId
+        ..postId = postId
+        ..title = title
+        ..content = content
+        ..pictureBlob = pictureBlob);
+
+      if (response.success)
+        return true;
+      else
+        return false;
     } catch (e) {
       print(e);
       return false;

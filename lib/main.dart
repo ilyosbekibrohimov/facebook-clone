@@ -6,7 +6,7 @@ import 'package:grpc_client/utils/settings.dart';
 import 'package:provider/provider.dart';
 
 import 'business_logic/providers/detailedpost_provider.dart';
-import 'business_logic/providers/createpost_provider.dart';
+import 'business_logic/providers/postmanagement_provider.dart';
 import 'ui/main_screen.dart';
 
 void main() async{

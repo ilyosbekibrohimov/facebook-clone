@@ -2,7 +2,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:grpc_client/business_logic/providers/createpost_provider.dart';
+import 'package:grpc_client/business_logic/providers/postmanagement_provider.dart';
 import 'package:grpc_client/utils/settings.dart';
 import 'package:provider/provider.dart';
 

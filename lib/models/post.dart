@@ -7,7 +7,8 @@ class Post {
   String?  _userPhotoUrl;
   int?  _numberOfLikes;
   bool isLiked;
-  Post.create(this._title, this._content, this._pictureBlob, this._postId,  this._userName,  this._userPhotoUrl, this._numberOfLikes,  this.isLiked);
+  int _userId;
+  Post.create(this._title, this._content, this._pictureBlob, this._postId,  this._userName,  this._userPhotoUrl, this._numberOfLikes,  this.isLiked,  this._userId);
 
   List<int>? get pictureBlob => _pictureBlob;
 
@@ -22,6 +23,8 @@ class Post {
   String? get userPhotoUrl => _userPhotoUrl;
 
   int? get numberOfLikes => _numberOfLikes;
+
+  int? get  userId => _userId;
 
 
 

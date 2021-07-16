@@ -88,12 +88,13 @@ const FetchPostDetails_Response$json = const {
     const {'1': 'creator_name', '3': 5, '4': 1, '5': 9, '10': 'creatorName'},
     const {'1': 'creator_photoUrl', '3': 6, '4': 1, '5': 9, '10': 'creatorPhotoUrl'},
     const {'1': 'numberOfLikes', '3': 7, '4': 1, '5': 5, '10': 'numberOfLikes'},
-    const {'1': 'isLiked', '3': 8, '4': 1, '5': 8, '10': 'isLiked'},
+    const {'1': 'user_id', '3': 8, '4': 1, '5': 5, '10': 'userId'},
+    const {'1': 'isLiked', '3': 9, '4': 1, '5': 8, '10': 'isLiked'},
   ],
 };
 
 /// Descriptor for `FetchPostDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchPostDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3REZXRhaWxzGjsKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkEhcKB3VzZXJfaWQYAiABKAVSBnVzZXJJZBqEAgoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIUCgV0aXRsZRgCIAEoCVIFdGl0bGUSGAoHY29udGVudBgDIAEoCVIHY29udGVudBIgCgtwaWN0dXJlQmxvYhgEIAEoDFILcGljdHVyZUJsb2ISIQoMY3JlYXRvcl9uYW1lGAUgASgJUgtjcmVhdG9yTmFtZRIpChBjcmVhdG9yX3Bob3RvVXJsGAYgASgJUg9jcmVhdG9yUGhvdG9VcmwSJAoNbnVtYmVyT2ZMaWtlcxgHIAEoBVINbnVtYmVyT2ZMaWtlcxIYCgdpc0xpa2VkGAggASgIUgdpc0xpa2Vk');
+final $typed_data.Uint8List fetchPostDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFBvc3REZXRhaWxzGjsKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkEhcKB3VzZXJfaWQYAiABKAVSBnVzZXJJZBqdAgoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIUCgV0aXRsZRgCIAEoCVIFdGl0bGUSGAoHY29udGVudBgDIAEoCVIHY29udGVudBIgCgtwaWN0dXJlQmxvYhgEIAEoDFILcGljdHVyZUJsb2ISIQoMY3JlYXRvcl9uYW1lGAUgASgJUgtjcmVhdG9yTmFtZRIpChBjcmVhdG9yX3Bob3RvVXJsGAYgASgJUg9jcmVhdG9yUGhvdG9VcmwSJAoNbnVtYmVyT2ZMaWtlcxgHIAEoBVINbnVtYmVyT2ZMaWtlcxIXCgd1c2VyX2lkGAggASgFUgZ1c2VySWQSGAoHaXNMaWtlZBgJIAEoCFIHaXNMaWtlZA==');
 @$core.Deprecated('Use fetchPostsByPageDescriptor instead')
 const FetchPostsByPage$json = const {
   '1': 'FetchPostsByPage',
@@ -230,3 +231,31 @@ const UnlikePost_Response$json = const {
 
 /// Descriptor for `UnlikePost`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List unlikePostDescriptor = $convert.base64Decode('CgpVbmxpa2VQb3N0GlkKB1JlcXVlc3QSFwoHcG9zdF9pZBgBIAEoBVIGcG9zdElkEhcKB3VzZXJfaWQYAiABKAVSBnVzZXJJZBIcCgl0aW1lc3RhbXAYAyABKAlSCXRpbWVzdGFtcBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+@$core.Deprecated('Use editPostDescriptor instead')
+const EditPost$json = const {
+  '1': 'EditPost',
+  '3': const [EditPost_Request$json, EditPost_Response$json],
+};
+
+@$core.Deprecated('Use editPostDescriptor instead')
+const EditPost_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'user_id', '3': 1, '4': 1, '5': 5, '10': 'userId'},
+    const {'1': 'post_id', '3': 2, '4': 1, '5': 5, '10': 'postId'},
+    const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
+    const {'1': 'content', '3': 4, '4': 1, '5': 9, '10': 'content'},
+    const {'1': 'pictureBlob', '3': 5, '4': 1, '5': 12, '10': 'pictureBlob'},
+  ],
+};
+
+@$core.Deprecated('Use editPostDescriptor instead')
+const EditPost_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `EditPost`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editPostDescriptor = $convert.base64Decode('CghFZGl0UG9zdBqNAQoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgFUgZ1c2VySWQSFwoHcG9zdF9pZBgCIAEoBVIGcG9zdElkEhQKBXRpdGxlGAMgASgJUgV0aXRsZRIYCgdjb250ZW50GAQgASgJUgdjb250ZW50EiAKC3BpY3R1cmVCbG9iGAUgASgMUgtwaWN0dXJlQmxvYhokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
