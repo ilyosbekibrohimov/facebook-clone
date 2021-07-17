@@ -13,7 +13,7 @@ class PostBottomSheet extends StatefulWidget {
   String? _title;
   String? _content;
 
-  PostBottomSheet(this._mode, this._postId, this._userId, this._title, this._content);
+  PostBottomSheet(this._mode, this._userId, this._postId, this._title, this._content);
 
   @override
   _PostBottomSheetState createState() => _PostBottomSheetState();
