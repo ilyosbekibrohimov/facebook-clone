@@ -2,6 +2,22 @@
 Blogging app  in Flutter:</br>
 Backend implementation: gRPC</br>
 State management approach: provider</br>
+Packages used:
+  provider: ^5.0.0
+  http: ^0.13.3
+  grpc: ^3.0.0
+  protobuf: ^2.0.0
+  image_picker: ^0.8.0+1
+  modal_bottom_sheet: ^2.0.0
+  flutter_signin_button: ^2.0.0
+  flutter_spinkit: ^5.0.0
+  google_sign_in: ^5.0.4
+  firebase_auth: ^1.1.3
+  firebase_core: ^1.1.0
+  shared_preferences: ^2.0.6
+  cached_network_image: ^3.0.0
+  like_button: ^2.0.2
+  fluttertoast: ^8.0.7
 **************************************************************************************************************************************
 
 
