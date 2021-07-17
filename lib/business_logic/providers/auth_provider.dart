@@ -15,7 +15,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> signInWithGoogle() async {
     try {
-       print("start");
+
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final credential = GoogleAuthProvider.credential(
