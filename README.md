@@ -1,7 +1,7 @@
 
-Blogging app  in Flutter:
-Backend implementation: gRPC
-State management approach: provider
+Blogging app  in Flutter:</br>
+Backend implementation: gRPC</br>
+State management approach: provider</br>
 **************************************************************************************************************************************
 
 
